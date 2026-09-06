@@ -1,3 +1,5 @@
+document.title = 'Urban Echo - DES222 Process Journal';
+
 const sections = [...document.querySelectorAll('main section[id]')];
 const navLinks = [...document.querySelectorAll('.site-nav a')];
 
