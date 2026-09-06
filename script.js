@@ -10,3 +10,11 @@ const observer = new IntersectionObserver((entries) => {
 }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
 
 sections.forEach(section => observer.observe(section));
+
+// Reliable scroll-to-top behaviour for the brand and footer button.
+document.querySelectorAll('a[href="#top"]').forEach(link => {
+  link.addEventListener('click', event => {
+    event.preventDefault();
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  });
+});
