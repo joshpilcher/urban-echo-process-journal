@@ -206,3 +206,16 @@ The map sheet makes place feel central again and reduces the long mobile page, w
 Client-side photo preparation reduces storage/upload size and avoids retaining original EXIF metadata, at the cost of rejecting HEIC and flattening image transparency. The browser fallback and camera/library selection still need iOS Safari and Android Chrome testing, including orientation, large photographs, keyboard overlap and device storage pressure. Automated browser results cannot establish those outcomes.
 
 The next technical milestone is a verified two-session public photo contribution and discovery, with attempted cross-user writes/deletes rejected by the real service. The next assessment evidence remains a genuine phone create → move away → relock → return → unlock test and the standalone 1–3 minute showreel. No participant feedback, outdoor results or final personal reflection has been invented for this entry.
+
+
+## 19 October 2026 — Supabase project and database provisioned
+
+The Supabase tools became available after the previous entry. Joshua chose the student organisation for a separate Urban Echo project. The connector created `jamgivrngcderqmemjmb` in Sydney (`ap-southeast-2`); the existing inactive BikePark project was not modified.
+
+Applied `urban_echo_public_memories` and `urban_echo_least_privilege_grants`. The second migration followed an inspection that found inherited INSERT, DELETE, TRUNCATE and other broad grants. It revokes all client-role table privileges, then grants only SELECT to public readers and SELECT/INSERT/DELETE to authenticated contributors. The row policies still restrict creation/deletion to the contributor ID. Verification confirmed RLS enabled, all six intended table/storage policies and the public JPEG bucket with its 1,572,864-byte limit. A real request to the table REST endpoint using the publishable key returned HTTP 200 and `[]`.
+
+Supabase security advisors returned no findings after the change. The performance advisor reported two unused indexes on the new, empty table; they were retained for date ordering and ownership lookups. [Advisor explanation](https://supabase.com/docs/guides/database/database-linter?lint=0005_unused_index). An advisor result is not proof that the full multi-user workflow works.
+
+The public Auth settings endpoint confirms `anonymous_users: false`. The connector has no Auth-settings operation, so the approved browser fallback was used. Dashboard sign-in reached a CAPTCHA requiring Joshua’s manual completion. No challenge was bypassed. Anonymous sign-ins have not been enabled, no test photo has been uploaded, and no two-user/RLS write test has been completed. The client configuration remains empty and Public remains disabled while this is unresolved. The next action is to finish dashboard sign-in, enable the anonymous contributor flow, and run the actual sharing/ownership tests before deployment.
+
+Current Supabase changelog and documentation were reviewed, including explicit Data API grants and public-bucket access. This is backend provisioning evidence; the existing browser screenshots still represent simulated location and synthetic image tests.
