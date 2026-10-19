@@ -258,6 +258,22 @@
         </div>
         <figure class="wide-figure development-desktop"><a href="task3/screenshots/iteration-02-desktop.png"><img src="task3/screenshots/iteration-02-desktop.png" alt="Desktop browser test showing a memory checking GPS accuracy and another memory locked outside the discovery radius" loading="lazy"></a><figcaption>Desktop browser test, 1440 px. The checking state keeps a story closed when the accuracy estimate crosses the boundary.</figcaption></figure>
       </article>
+      <article class="development-update" aria-labelledby="iteration-three-title">
+        <div class="section-grid">
+          <div><p class="kicker">Iteration 03 · 19 October 2026</p><h3 id="iteration-three-title">Photo memories, closer to the original design</h3><p class="section-aside">Implemented and browser-tested locally. Shared storage awaits live connection.</p></div>
+          <div class="prose">
+            <p>Following Joshua’s selected priorities, the app now uses the Task 2 serif headings, light surfaces, teal controls, map sheet and a dedicated photo memory view. Map, Nearby, My Echoes, title search and photo/story filters act on real saved records.</p>
+            <p>Photos can be attached to device memories, resized and re-encoded before saving in IndexedDB. Text and photo survive reload. The open detail view relocks both story and photo as GPS moves out of range, and a two-step delete action removes the memory.</p>
+            <p><strong>Verified:</strong> 13 Node checks and 18 browser checks passed, including photo validation, resizing, persistence and deletion, plus the existing GPS and responsive-layout cases. GPS and image fixtures are synthetic; physical-phone testing remains outstanding.</p>
+            <p><strong>Shared discovery is pending:</strong> the Supabase adapter and ownership/storage migration are prepared, but no live project has been connected or tested. Public is disabled until that work is verified. No existing memory is automatically uploaded.</p>
+            <p>The map sheet better connects the interface to place, but its compact height, photo selection on phones and anonymous contributor ownership need further evaluation. <a href="task3/development-log.md">Read implementation decisions, test output and limitations ↗</a></p>
+          </div>
+        </div>
+        <div class="development-evidence">
+          <figure><a href="task3/screenshots/iteration-03-mobile.png"><img src="task3/screenshots/iteration-03-mobile.png" alt="Light mobile map with teal controls and rounded discovery sheet, labelled simulated GPS browser test" loading="lazy"></a><figcaption>Implemented mobile redesign. Simulated coordinates and test memories; no outdoor trial.</figcaption></figure>
+          <figure><a href="task3/screenshots/iteration-03-photo-detail.png"><img src="task3/screenshots/iteration-03-photo-detail.png" alt="Photo memory detail screen with a teal synthetic test image and explicit browser test label" loading="lazy"></a><figcaption>Actual browser render of a saved photo memory. The image is a synthetic test fixture.</figcaption></figure>
+        </div>
+      </article>
     </section>
 
     <section class="closing-section">

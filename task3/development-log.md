@@ -155,3 +155,54 @@ The live app and journal now link to one another, and the former journal `/app/`
 ## 19 October 2026 — First response to the live prototype
 
 Joshua reported that the deployed app “works” but needs further polishing and more features. This is initial user feedback, not a measured outdoor GPS/proximity test; no device, accuracy readings, walk distances or screenshots were supplied with that feedback. A review of the current implementation identified the long stacked mobile layout, lack of a dedicated Echo detail view, and missing edit/delete actions as candidates for the next iteration. Feature and visual priorities are being clarified before implementation; shared storage and photo uploads remain planned rather than completed.
+
+
+---
+
+## 19 October 2026 — Iteration 03: photo memories and a closer visual match
+
+Joshua selected **attach photos to memories**, **discover other people’s Echoes**, and **match the Task 2 mock-up more closely** as the next priorities. Development therefore moved from the initial stacked layout toward the Task 2 white/lavender surface, serif masthead, teal controls, map pins, rounded discovery sheet and photo-led detail view. The original mock-up remains unchanged in the completed Task 2 section.
+
+### Implemented in this increment
+
+- An expandable mobile map sheet and wider desktop sidebar, with working Map, Nearby and My Echoes views. Search filters titles; Photos and Stories filter real saved records. Controls that would imply unimplemented likes, audio or profiles were omitted.
+- A dedicated memory detail view. It reacts to the same GPS state as the list: moving outside the discovery boundary hides the open story and photo again.
+- A revised Create Echo screen with character counts, current GPS mini-map and an explicit visibility choice. The pin uses the GPS coordinates at submission, even if the map was panned. Draft text survives preparation, GPS and storage errors.
+- Local photo attachment: JPEG, PNG and WebP files up to 10 MB are decoded, resized to a maximum dimension of 1600 px and re-encoded as JPEG below 1500 KB. Re-encoding discards the original metadata. Photos use IndexedDB rather than expanding localStorage records; the original text-memory format stays compatible.
+- A two-step delete action removes device memories and their stored photo. Device-only remains the default; no existing memory is automatically uploaded.
+
+### Shared discovery: prepared, not yet operational
+
+The app now contains a Supabase adapter, the official vendored JavaScript SDK, a proposed database/storage migration and explicit Public consent text. The migration defines public reading and creator-only writes/deletion, with photo paths scoped to an authenticated anonymous contributor. Public sharing would reveal the title, story, exact pin and photo. The 100 m rule is an interface interaction, not protection for confidential content.
+
+**Connection status:** Joshua installed the Supabase plugin. Its project tools were not exposed to the development session, so no project was selected, migration applied, live upload made or real multi-user discovery test completed. Project configuration remains empty and Public is visibly disabled. This is a tooling blocker, not evidence that the cloud feature works. The next step is to connect a dedicated project, enable anonymous sign-ins and verify RLS with independent users before enabling Public.
+
+Anonymous ownership is a limited prototype decision: it avoids an account form, but clearing site data loses control of previously shared contributions. The first query is capped at the newest 200 public Echoes. Account recovery, moderation, geographic pagination and robust orphan-media cleanup remain future work.
+
+### Testing and genuine evidence
+
+**13 Node checks passed:** the five existing location-rule checks plus eight adapter contract checks using a fake SDK. The latter cover public reads without sign-up, owner-scoped photo upload, upload failure, uncertain insert reconciliation, failed-insert cleanup and deletion restrictions. A failed insert now checks whether its row committed before removing the photo; this avoids deleting an image after a success response is lost. These checks do **not** establish that real Supabase policies are deployed or correct.
+
+**18 browser checks passed** in Chromium 133 with Playwright 1.62.1. The previous 16 GPS/storage/layout checks still pass, alongside photo type/decode errors, preservation of draft text, 2000 × 1000 → 1600 × 800 JPEG conversion, IndexedDB persistence after reload, hiding the photo without GPS, relocking an open detail view and deleting the blob. Responsive bounds were checked at 320, 390, 768 and 1440 px. External HTTPS requests were blocked for this run; cached tiles can appear in captures and are not evidence of live basemap delivery. This remains simulated GPS, not a measured outdoor walk.
+
+[Node check output](iteration-03-test-results-node.txt) · [Browser check output](iteration-03-test-results-browser.txt)
+
+![Iteration 03 mobile map and discovery sheet](screenshots/iteration-03-mobile.png)
+
+*Implemented interface, 390 px, with simulated GPS and written test memories.*
+
+![Photo memory detail with a synthetic test image](screenshots/iteration-03-photo-detail.png)
+
+*The teal image was generated by the browser test as a validation fixture. It is not a photograph of a visited place. The screenshot shows the implemented photo detail view, with an explicit test label.*
+
+![Photo selected in the creation form](screenshots/iteration-03-photo-create.png)
+
+*Actual browser-rendered form and photo preview. The story and image identify themselves as synthetic test content.*
+
+### Design reflection and remaining evaluation
+
+The map sheet makes place feel central again and reduces the long mobile page, while the serif headings and teal palette reconnect the working prototype with the original visual direction. The detail screen gives a memory space to be read rather than fitting everything into a card. On small screens the compact sheet shows only part of a card; Nearby expands the list, but this interaction needs testing with people to see whether they notice it.
+
+Client-side photo preparation reduces storage/upload size and avoids retaining original EXIF metadata, at the cost of rejecting HEIC and flattening image transparency. The browser fallback and camera/library selection still need iOS Safari and Android Chrome testing, including orientation, large photographs, keyboard overlap and device storage pressure. Automated browser results cannot establish those outcomes.
+
+The next technical milestone is a verified two-session public photo contribution and discovery, with attempted cross-user writes/deletes rejected by the real service. The next assessment evidence remains a genuine phone create → move away → relock → return → unlock test and the standalone 1–3 minute showreel. No participant feedback, outdoor results or final personal reflection has been invented for this entry.
