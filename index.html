@@ -274,6 +274,19 @@
           <figure><a href="task3/screenshots/iteration-03-photo-detail.png"><img src="task3/screenshots/iteration-03-photo-detail.png" alt="Photo memory detail screen with a teal synthetic test image and explicit browser test label" loading="lazy"></a><figcaption>Actual browser render of a saved photo memory. The image is a synthetic test fixture.</figcaption></figure>
         </div>
       </article>
+      <article class="development-update" aria-labelledby="shared-discovery-title">
+        <div class="section-grid">
+          <div><p class="kicker">Iteration 04 · 19 October 2026</p><h3 id="shared-discovery-title">Memories other people can discover</h3><p class="section-aside">Real shared backend verified with two browser sessions. GPS and image fixtures remain synthetic.</p></div>
+          <div class="prose">
+            <p><strong>Published:</strong> the version 0.3 app is live on GitHub Pages. It now connects to a dedicated Supabase database and photo bucket. Visitors can keep an Echo on this device or explicitly share its story, photo and exact location. Reading public memories needs no account form; contributing starts an anonymous creator session.</p>
+            <p><strong>Seven live shared-service checks passed:</strong> a real upload, discovery and photo loading in a second session, proximity relocking, failed-insert draft preservation, creator ownership after reload and deletion. Direct API attempts at unauthenticated and cross-user changes were rejected or affected zero records. The test Echo and photo were removed afterwards.</p>
+            <p>The 18 device-only browser checks and 13 Node checks also pass. The screenshot shows one session reading another session’s real contribution, with simulated GPS and a synthetic image clearly labelled. This does not establish phone GPS accuracy or outdoor user testing.</p>
+            <p>Anonymous ownership has no recovery after site data is cleared. Public content is accessible through the API and photo URLs; proximity is an interaction, not a privacy boundary. Moderation, CAPTCHA and a scalable geographic feed remain future work. Current Supabase advisor findings and their implications are recorded in the <a href="task3/development-log.md">technical log ↗</a>.</p>
+            <p><a href="https://joshpilcher.github.io/urban-echo/">Open Urban Echo ↗</a> · <a href="task3/shared-test-results.txt">Read live sharing test results ↗</a></p>
+          </div>
+        </div>
+        <figure class="wide-figure"><a href="task3/screenshots/shared-discovery.png"><img src="task3/screenshots/shared-discovery.png" alt="Second isolated browser session displaying a photo memory from real shared storage, labelled simulated GPS and synthetic image" loading="lazy" style="max-width:390px;width:100%;display:block;margin:auto"></a><figcaption>Real cross-session photo discovery. Synthetic GPS and image; the test contribution was removed after verification.</figcaption></figure>
+      </article>
     </section>
 
     <section class="closing-section">

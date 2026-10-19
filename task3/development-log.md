@@ -219,3 +219,51 @@ Supabase security advisors returned no findings after the change. The performanc
 The public Auth settings endpoint confirms `anonymous_users: false`. The connector has no Auth-settings operation, so the approved browser fallback was used. Dashboard sign-in reached a CAPTCHA requiring Joshua’s manual completion. No challenge was bypassed. Anonymous sign-ins have not been enabled, no test photo has been uploaded, and no two-user/RLS write test has been completed. The client configuration remains empty and Public remains disabled while this is unresolved. The next action is to finish dashboard sign-in, enable the anonymous contributor flow, and run the actual sharing/ownership tests before deployment.
 
 Current Supabase changelog and documentation were reviewed, including explicit Data API grants and public-bucket access. This is backend provisioning evidence; the existing browser screenshots still represent simulated location and synthetic image tests.
+
+
+## 19 October 2026 — Iteration 04: real shared photo discovery
+
+Joshua completed the Supabase dashboard sign-in. Anonymous sign-ins were enabled for the dedicated Urban Echo project, and the browser client was connected using only the project URL and publishable key. Contributors are authenticated as anonymous users; reading public Echoes does not create an account. The default create option is still Only this device. Choosing Public explicitly shares the story, photo and exact pin; old device memories are not uploaded automatically.
+
+### Verified against the real backend
+
+**Seven live shared-storage browser checks passed**, using two isolated browser contexts and the actual Supabase Auth, database and Storage APIs. Location callbacks and the image were synthetic; the backend requests were real.
+
+1. Both sessions read public Echoes without creating contributor accounts.
+2. A deliberately interrupted row insertion left the photo draft and text intact. The app reconciled the row and removed the failed attempt’s uploaded object; retry succeeded.
+3. Session A created an anonymous contributor and shared a JPEG photo and Echo through the actual form. No local memory record was created for this public post.
+4. Session B refreshed and discovered A’s Echo. Its story/photo stayed closed without GPS, opened at the simulated location and relocked when the location moved away. The remote photo loaded, and B had no Delete control for A’s Echo.
+5. Direct client API attempts confirmed backend enforcement rather than relying on a hidden button: unauthenticated insertion, an authenticated insertion with A’s owner ID, cross-user updates, uploading into A’s photo folder, deleting A’s row and removing A’s photo were rejected or affected zero records. A’s row/photo remained intact.
+6. A reloaded, retained its anonymous creator session and deleted its Echo and photo. B’s refresh removed the contribution. A separate SQL check confirmed **zero Echo rows and zero objects in the photo bucket** afterwards. Two anonymous test Auth accounts remain; these are test sessions, not participants.
+7. No uncaught application errors occurred during the shared workflow.
+
+[Live shared-service output](shared-test-results.txt) · [Device-only regression output](connected-regression-results.txt) · [Node output](connected-node-results.txt)
+
+The original **18 device-only browser checks** and **13 Node checks** also pass with the connected build. The regression runner explicitly injects empty cloud configuration so ordinary local tests never publish their synthetic memories; `npm run test:shared` is a separate, deliberate live-service run. The latter creates a uniquely labelled test Echo and removes it and its photo on completion.
+
+![Second browser session reading a real shared photo Echo](screenshots/shared-discovery.png)
+
+*Actual implemented screen in session B, reading session A’s real Supabase contribution. The banner distinguishes live shared storage from simulated GPS and the synthetic image. This is not evidence of two people meeting outdoors or a physical phone walk.*
+
+### Security review and prototype limits
+
+The final security-advisor run now flags Anonymous Access Policies on the Echo and storage policies because anonymous contributors are intentionally supported. The live tests confirmed those operations remain scoped to the creator. The advisor also flags leaked-password protection disabled on the default email provider, which remains enabled in Supabase defaults although the application offers no email/password flow. These are recorded, not presented as a clean production audit. [Anonymous policy advisory](https://supabase.com/docs/guides/database/database-advisors?queryGroups=lint&lint=0012_auth_allow_anonymous_sign_ins) · [Password protection guidance](https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection).
+
+Default anonymous sign-up rate limits remain in place; no CAPTCHA, moderation interface or account recovery has been added. Clearing site data loses an anonymous contributor’s ability to manage existing public posts. The prototype reads the newest 200 public Echoes and is not yet a scalable geographic feed. Public bucket URLs and API data remain public regardless of the interface’s 100 m reveal rule. These limits should be addressed before broader public use.
+
+### Reflection and next evidence
+
+Real sharing changes Urban Echo from a personal location journal toward the social concept in Task 2: a place can carry a memory left by someone else. Testing with independent sessions was necessary because local persistence alone could make the interface look shared without actually proving it. The direct ownership tests likewise showed that deletion restrictions are enforced by the backend, not just the interface.
+
+The next evaluation should involve an actual phone photo, a public contribution and another device approaching it outdoors, recording GPS accuracy and lock/unlock behaviour. iOS/Android image orientation, camera selection, keyboard behaviour and storage pressure still need observation. The provisional 100 m discovery radius and 30 s freshness window remain unvalidated outdoors. The final 1–3 minute standalone showreel and Joshua’s personal evaluation remain outstanding; no field results or participant feedback have been invented.
+
+
+### Publishing the connected prototype
+
+[Application PR #1](https://github.com/joshpilcher/urban-echo/pull/1) was marked ready and merged as `23ea1b13e37808a400ea0eff88cf3a67c38da19a`. The [GitHub Pages deployment](https://github.com/joshpilcher/urban-echo/actions/runs/39206899280) completed successfully. The published [Urban Echo app](https://joshpilcher.github.io/urban-echo/) was opened over HTTPS and rendered the version 0.3 redesign, loaded basemap, enabled shared Refresh control and **0 community Echoes** after the live test cleanup. No GPS permission was requested or granted in this published-page check; it verifies delivery and the initial shared read, not field behaviour.
+
+![Published version 0.3 connected to shared storage](screenshots/shared-live-deployment.jpg)
+
+*Actual published initial screen after cleanup, with no simulated memories or real location granted. The Sunshine Coast map is the app’s default view.*
+
+The completed Task 2 HTML was checked byte-for-byte against the original again and remains unchanged. This entry adds genuine Task 3 progress and preserves the earlier pending-state entries as a development record.

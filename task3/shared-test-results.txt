@@ -1,0 +1,13 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> urban-echo@0.3.0 test:shared
+> node tests/shared-browser.cjs
+
+PASS real public reads work without creating a contributor account
+PASS failed public insert preserves the photo draft for a successful retry
+PASS creator shares a real photo and row through the app
+PASS second session discovers shared Echo, with story/photo locked until approached
+PASS live RLS rejects unauthenticated writes and cross-user row/photo mutations
+PASS creator session survives reload and can delete the shared row and photo
+PASS shared workflow throws no uncaught application errors
+RESULT: 7 live shared-storage checks passed. Two anonymous browser sessions; real database and storage; simulated GPS and synthetic image. Test Echo and photo deleted. Physical-phone evaluation remains outstanding.
