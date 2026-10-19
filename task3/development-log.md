@@ -150,3 +150,8 @@ The application is now live at **[https://joshpilcher.github.io/urban-echo/](htt
 The live app and journal now link to one another, and the former journal `/app/` entry point links to the deployed app. The application README also provides the live URL. Subsequent pushes to each repository’s configured main branch trigger their respective Pages rebuilds.
 
 **Reflection and next test:** publishing the prototype makes it possible to test the device-location interaction on a phone over HTTPS. The next evidence should be a genuine create → move away → relock → return → unlock sequence, including the observed accuracy and any interruptions caused by the provisional 30-second freshness policy. Shared storage and photo uploads are still unimplemented; the deployed app remains browser-local.
+
+
+## 19 October 2026 — First response to the live prototype
+
+Joshua reported that the deployed app “works” but needs further polishing and more features. This is initial user feedback, not a measured outdoor GPS/proximity test; no device, accuracy readings, walk distances or screenshots were supplied with that feedback. A review of the current implementation identified the long stacked mobile layout, lack of a dedicated Echo detail view, and missing edit/delete actions as candidates for the next iteration. Feature and visual priorities are being clarified before implementation; shared storage and photo uploads remain planned rather than completed.
