@@ -232,9 +232,32 @@
           <p>I created a separate application directory so that the existing design research and process journal remain intact. The prototype uses a live Leaflet map, browser GPS, proximity detection and locally stored Echoes. A first version of the interface includes a location-status display, memory cards, and a form for leaving a memory at the user's current position.</p>
           <p>The initial proximity distance is 100 metres. This is a provisional design decision that requires on-device testing to evaluate how realistic it is given GPS accuracy. The first version uses local browser storage; a shared database, image uploads and cross-device discovery are not yet implemented.</p>
           <p>Next, I will test GPS permission handling, location accuracy, proximity unlocking, creation and the mobile layout on a real device. The results, screenshots and any fixes will be documented as the project progresses.</p>
-          <p><a href="app/index.html">Explore the working prototype ↗</a> &nbsp; · &nbsp; <a href="task3/development-log.md">Read the technical development log ↗</a></p>
+          <p><a href="https://github.com/joshpilcher/urban-echo">View the application repository ↗</a> &nbsp; · &nbsp; <a href="task3/development-log.md">Read the technical development log ↗</a></p>
         </div>
       </div>
+
+      <div class="prose development-update"><h3>Application repository · 19 October 2026</h3><p>The working application is now maintained separately in <a href="https://github.com/joshpilcher/urban-echo">joshpilcher/urban-echo</a>. This repository keeps the assessment journal, development history and evidence. The standalone app was checked again after moving its files to the repository root: five location-rule tests and 16 browser checks passed, with external network requests blocked for the relocation check. A separate repository does not deploy the app.</p></div>
+      <article class="development-update" aria-labelledby="iteration-two-title">
+        <div class="section-grid">
+          <div><p class="kicker">Iteration 02 · 19 October 2026</p><h3 id="iteration-two-title">Reliable location, honest discovery</h3><p class="section-aside">AI-assisted implementation and browser testing. Physical-phone testing remains outstanding.</p></div>
+          <div class="prose">
+            <p>The next iteration focused on making the relationship between location and memory reliable. GPS tracking now has a cancellable subscription, a visible stop control and a 30-second fix expiry. Temporary location failures lock stories and disable saving while allowing tracking to recover. Permission denial, stop and retry release the previous watcher.</p>
+            <p>Discovery now accounts for reported GPS accuracy. A memory opens when its distance plus the accuracy estimate fits inside the provisional 100-metre radius. A reading 95 metres away with ±15-metre accuracy shows a checking state. The All Echoes and Within reach filters make this response visible.</p>
+            <p>The creation form displays the current save coordinates and preserves a draft after GPS or storage failure. Existing local memories remain compatible. No shared database or photo upload has been added yet.</p>
+            <h4>A bug found by testing actual interaction</h4>
+            <p>A Chromium tap test found that the original Leaflet stylesheet had an incorrect integrity hash. The browser rejected it, leaving map tiles able to intercept taps on other controls. The hash is corrected and the map library is now bundled locally. A later browser GPS test also exposed a temporary-error recovery issue, which was corrected without creating extra location subscriptions.</p>
+            <h4>Evidence and reflection</h4>
+            <p>Five location-rule tests and 16 browser checks passed, covering proximity, accuracy, stale fixes, creation and reload, permission recovery, storage failures, safe text rendering and layout bounds at 320, 390, 768 and 1440 pixels. Screenshots below show the implemented app using simulated GPS and test memories. Early runs with failed map tile loading kept GPS and the memory list usable; the final screenshots show the basemap loading. These checks do not establish actual phone GPS performance.</p>
+            <p>The uncertainty state is more faithful to how GPS works, but could delay discovery for someone standing near a place. The 30-second expiry could also interrupt a stationary reader. Both are provisional decisions to evaluate in an outdoor walking test before recording the final standalone 1–3 minute showreel.</p>
+            <p><a href="task3/development-log.md">Read decisions, test coverage, limitations and next steps ↗</a> · <a href="https://github.com/joshpilcher/urban-echo#physical-phone-test-still-needed">Run the app and follow the phone test checklist ↗</a></p>
+          </div>
+        </div>
+        <div class="development-evidence">
+          <figure><a href="task3/screenshots/iteration-02-mobile.png"><img src="task3/screenshots/iteration-02-mobile.png" alt="Implemented mobile Urban Echo interface with simulated GPS and test memories, including unlocked and locked discovery states" loading="lazy"></a><figcaption>Mobile browser test, 390 px. Synthetic GPS and memories; not field-test evidence.</figcaption></figure>
+          <figure><a href="task3/screenshots/iteration-02-create.png"><img src="task3/screenshots/iteration-02-create.png" alt="Create Echo form displaying its simulated current GPS save location and a test draft" loading="lazy"></a><figcaption>Creation form with live save coordinates and an explicit local-storage explanation.</figcaption></figure>
+        </div>
+        <figure class="wide-figure development-desktop"><a href="task3/screenshots/iteration-02-desktop.png"><img src="task3/screenshots/iteration-02-desktop.png" alt="Desktop browser test showing a memory checking GPS accuracy and another memory locked outside the discovery radius" loading="lazy"></a><figcaption>Desktop browser test, 1440 px. The checking state keeps a story closed when the accuracy estimate crosses the boundary.</figcaption></figure>
+      </article>
     </section>
 
     <section class="closing-section">
