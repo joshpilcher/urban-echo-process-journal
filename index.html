@@ -18,13 +18,14 @@
       <a href="#realisations">Realisations</a>
       <a href="#interface">App &amp; UI</a>
       <a href="#related">Related Projects</a>
+      <a href="#development">Task 3</a>
     </nav>
   </header>
 
   <main>
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <p class="eyebrow">DES222 · Task 2 · Process Journal</p>
+        <p class="eyebrow">DES222 · Tasks 2 &amp; 3 · Process Journal</p>
         <h1 id="hero-title">Urban Echo</h1>
         <p class="subtitle">Layering Digital Experiences onto Physical Places</p>
         <p class="hero-intro">A responsive location-based concept exploring how digital content can become connected to the places we physically move through.</p>
@@ -222,6 +223,20 @@
       </article>
     </section>
 
+    <section class="journal-section" id="development">
+      <div class="section-label">05 · Task 3 — Prototype Development</div>
+      <div class="section-grid">
+        <div><h2>From an idea to a location-responsive experience</h2><p class="section-aside">Development phase · 19 October 2026</p></div>
+        <div class="prose">
+          <p>Following the conceptual work completed in Task 2, I began implementing Urban Echo as an interactive mobile-first web application. My focus for this first iteration was establishing the core relationship between the user's real-world position and the digital memories attached to locations.</p>
+          <p>I created a separate application directory so that the existing design research and process journal remain intact. The prototype uses a live Leaflet map, browser GPS, proximity detection and locally stored Echoes. A first version of the interface includes a location-status display, memory cards, and a form for leaving a memory at the user's current position.</p>
+          <p>The initial proximity distance is 100 metres. This is a provisional design decision that requires on-device testing to evaluate how realistic it is given GPS accuracy. The first version uses local browser storage; a shared database, image uploads and cross-device discovery are not yet implemented.</p>
+          <p>Next, I will test GPS permission handling, location accuracy, proximity unlocking, creation and the mobile layout on a real device. The results, screenshots and any fixes will be documented as the project progresses.</p>
+          <p><a href="app/index.html">Explore the working prototype ↗</a> &nbsp; · &nbsp; <a href="task3/development-log.md">Read the technical development log ↗</a></p>
+        </div>
+      </div>
+    </section>
+
     <section class="closing-section">
       <div class="closing-pin" aria-hidden="true"></div>
       <p class="eyebrow">Urban Echo</p>
@@ -231,7 +246,7 @@
   </main>
 
   <footer class="site-footer">
-    <p>DES222 · Task 2 Process Journal · Joshua Pilcher</p>
+    <p>DES222 · Tasks 2 &amp; 3 Process Journal · Joshua Pilcher</p>
     <p>Urban Echo - Layering Digital Experiences onto Physical Places</p>
   </footer>
 
