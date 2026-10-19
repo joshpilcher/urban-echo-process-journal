@@ -232,10 +232,11 @@
           <p>I created a separate application directory so that the existing design research and process journal remain intact. The prototype uses a live Leaflet map, browser GPS, proximity detection and locally stored Echoes. A first version of the interface includes a location-status display, memory cards, and a form for leaving a memory at the user's current position.</p>
           <p>The initial proximity distance is 100 metres. This is a provisional design decision that requires on-device testing to evaluate how realistic it is given GPS accuracy. The first version uses local browser storage; a shared database, image uploads and cross-device discovery are not yet implemented.</p>
           <p>Next, I will test GPS permission handling, location accuracy, proximity unlocking, creation and the mobile layout on a real device. The results, screenshots and any fixes will be documented as the project progresses.</p>
-          <p><a href="app/index.html">Explore the working prototype ↗</a> &nbsp; · &nbsp; <a href="task3/development-log.md">Read the technical development log ↗</a></p>
+          <p><a href="https://github.com/joshpilcher/urban-echo">View the application repository ↗</a> &nbsp; · &nbsp; <a href="task3/development-log.md">Read the technical development log ↗</a></p>
         </div>
       </div>
 
+      <div class="prose development-update"><h3>Application repository · 19 October 2026</h3><p>The working application is now maintained separately in <a href="https://github.com/joshpilcher/urban-echo">joshpilcher/urban-echo</a>. This repository keeps the assessment journal, development history and evidence. The standalone app was checked again after moving its files to the repository root: five location-rule tests and 16 browser checks passed, with external network requests blocked for the relocation check. A separate repository does not deploy the app.</p></div>
       <article class="development-update" aria-labelledby="iteration-two-title">
         <div class="section-grid">
           <div><p class="kicker">Iteration 02 · 19 October 2026</p><h3 id="iteration-two-title">Reliable location, honest discovery</h3><p class="section-aside">AI-assisted implementation and browser testing. Physical-phone testing remains outstanding.</p></div>
@@ -248,7 +249,7 @@
             <h4>Evidence and reflection</h4>
             <p>Five location-rule tests and 16 browser checks passed, covering proximity, accuracy, stale fixes, creation and reload, permission recovery, storage failures, safe text rendering and layout bounds at 320, 390, 768 and 1440 pixels. Screenshots below show the implemented app using simulated GPS and test memories. Early runs with failed map tile loading kept GPS and the memory list usable; the final screenshots show the basemap loading. These checks do not establish actual phone GPS performance.</p>
             <p>The uncertainty state is more faithful to how GPS works, but could delay discovery for someone standing near a place. The 30-second expiry could also interrupt a stationary reader. Both are provisional decisions to evaluate in an outdoor walking test before recording the final standalone 1–3 minute showreel.</p>
-            <p><a href="task3/development-log.md">Read decisions, test coverage, limitations and next steps ↗</a> · <a href="app/README.md">Run the app and follow the phone test checklist ↗</a></p>
+            <p><a href="task3/development-log.md">Read decisions, test coverage, limitations and next steps ↗</a> · <a href="https://github.com/joshpilcher/urban-echo#physical-phone-test-still-needed">Run the app and follow the phone test checklist ↗</a></p>
           </div>
         </div>
         <div class="development-evidence">

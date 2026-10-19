@@ -1,0 +1,13 @@
+✔ distance is in metres and handles identical and antipodal coordinates (1.823628ms)
+✔ discovery unlocks nearby content and relocks outside 100 metres (0.294111ms)
+✔ accuracy boundary and poor fixes do not reveal uncertain content (0.152997ms)
+✔ old, future, invalid and missing fixes cannot reveal or save memories (0.978667ms)
+✔ stored v0.1 records remain valid; malformed records are rejected (0.91113ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 202.007934
