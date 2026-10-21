@@ -515,3 +515,31 @@ The prior 14 real shared-media checks were not repeated because no backend behav
 
 
 **Published:** [Application PR #7](https://github.com/joshpilcher/urban-echo/pull/7) was merged as `f5c2c8582e542c12e8cffb8413e88c933bbd2914`. The [Pages deployment](https://github.com/joshpilcher/urban-echo/actions/runs/39561202576) completed successfully. The screenshots above are local browser evidence, with synthetic media and simulated GPS labelled.
+
+
+## 21 October 2026 — Iteration 11: story first, full media and waveform audio
+
+Joshua refined the viewing hierarchy: lead with the title and description, then show the other media in full. His attached audio reference showed a large teal play button, blue waveform and elapsed/total counter. This feedback revises iteration 10: the hero image and thumbnail selector are removed. The title, story and date now introduce the Echo, followed by audio cards and all photos/videos below. Complete images preserve their proportions; videos retain native playback controls.
+
+The custom audio row follows the supplied reference while retaining real playback. Its waveform is calculated from decoded audio samples across every channel, using 48 RMS amplitude bins. It is not a decorative random pattern. A transparent labelled range input supports touch and keyboard seeking over the waveform; played bars change colour, the large button toggles play/pause, and the counter follows actual media time. OfflineAudioContext decodes existing files without asking for microphone access. Waveform fetching is bounded to the existing audio size/duration limits. Closing or relocking disposes the widget and aborts pending fetches; a late decode cannot update a disposed card.
+
+Some browsers/codecs can play a file without exposing decoding or duration in the same way. If waveform decoding fails, the flat baseline and explanatory message preserve playback instead of presenting invented audio data. Seeking becomes available when duration is known. This fallback was explicitly tested by removing OfflineAudioContext in the test browser. Physical Safari/Android codec behaviour remains to be evaluated.
+
+Playback remains stable across valid GPS refreshes. Playing audio pauses other recordings; playing video pauses audio. Close, Escape, leaving the foreground and proximity relocking pause playback. All media disappears on relocking. Creation, limits, shared database schema, bucket configuration and access policies are unchanged.
+
+**29 Node, 21 existing browser, 18 local media and 14 real shared-media checks passed.** The new layout case verifies title/story before audio and visuals, every visual visible, no thumbnail selector, real waveform decoding, play/pause, keyboard seeking, time display, 44 px targets and no overflow at 320 × 568, 390 × 844 and 844 × 390. The fallback case confirms audio still plays without waveform decoding. Existing mixed creation, failure recovery, persistence, GPS refresh/relocking and deletion checks remain. The real-service run additionally verifies waveform decoding from shared Storage in another anonymous session and completes creator cleanup. Anonymous test Auth accounts remain. These are synthetic media/GPS tests, not participant or field results.
+
+[Node results](iteration-11-node-results.txt) · [Regression results](iteration-11-regression-results.txt) · [Local media results](iteration-11-media-results.txt) · [Real shared-media results](iteration-11-shared-results.txt)
+
+![Story-first Echo with waveform audio](screenshots/iteration-11-story-detail.png)
+
+*390 × 844 browser capture: title and story lead, followed by a large teal play button, actual decoded waveform and full photo/video below. Synthetic media and simulated GPS are visibly labelled; the sparse waveform reflects the synthetic recording.*
+
+![Full media below the story](screenshots/iteration-11-media-detail.png)
+
+*The lower portion of the same synthetic multi-attachment Echo. Full images/videos replace thumbnail selection.*
+
+**Reflection:** iteration 10 copied the original composition too literally: the lead image still delayed the story, and selecting thumbnails hid the other attachments. The revised hierarchy gives the place its meaning first and makes every visual available through ordinary scrolling. The tradeoff is a longer page for large collections. The waveform brings the sound memory closer to the mock-up while keeping meaningful seeking and feedback; it also adds decoding work and browser compatibility considerations. Real phone tests should assess thumb reach, scrolling through eight attachments, screen-reader operation, codecs and outdoor discovery before the final showreel. Completed Task 2 sections remain unchanged.
+
+
+**Published:** [Application PR #8](https://github.com/joshpilcher/urban-echo/pull/8) merged as `7a6a04c5596c492a8a53e4790ba528a1333e92e5`. The [Pages deployment](https://github.com/joshpilcher/urban-echo/actions/runs/39565101692) completed successfully. Screenshots are local browser evidence using labelled synthetic media/GPS.

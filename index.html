@@ -381,6 +381,21 @@
           <figure><a href="task3/screenshots/iteration-10-photo-detail.png"><img src="task3/screenshots/iteration-10-photo-detail.png" alt="Updated Echo detail with one lead image, rounded story panel, audio card and selectable thumbnails, labelled synthetic media" loading="lazy"></a><figcaption>After: the original mock-up’s hierarchy, using an explicitly synthetic browser fixture.</figcaption></figure>
         </div>
       </article>
+      <article class="development-update" aria-labelledby="story-first-title">
+        <div class="section-grid">
+          <div><p class="kicker">Iteration 11 · 21 October 2026</p><h3 id="story-first-title">The story leads; every moment follows</h3><p class="section-aside">Full media and a large waveform audio control.</p></div>
+          <div class="prose">
+            <p>Joshua’s feedback moved the title and description above all media. The hero and thumbnail selector are replaced by full photos/videos below the story and audio, making each attachment available through scrolling.</p>
+            <p>The supplied audio reference informed a large teal play/pause button, blue waveform and elapsed/total counter. The waveform uses real decoded samples, supports touch/keyboard seeking and colours played bars. If decoding is unavailable, playback remains usable with a clear fallback message.</p>
+            <p><strong>Verified:</strong> 29 Node, 21 regression, 18 local media and 14 real shared-media checks passed, including shared waveform decoding, seeking, playback fallback, responsive bounds, closing and relocking. Evidence uses synthetic media and simulated GPS. Physical-phone evaluation is still required; storage and backend policies are unchanged.</p>
+            <p><a href="task3/development-log.md">Read the design decisions, evidence and reflections ↗</a> · <a href="https://joshpilcher.github.io/urban-echo/">View the updated app ↗</a></p>
+          </div>
+        </div>
+        <div class="development-evidence">
+          <figure><a href="task3/screenshots/iteration-11-story-detail.png"><img src="task3/screenshots/iteration-11-story-detail.png" alt="Story-first Echo with large teal audio button, waveform and full photo below, labelled synthetic media and simulated GPS" loading="lazy"></a><figcaption>Title and description first, followed by actual waveform audio and full visuals. Synthetic browser fixture.</figcaption></figure>
+          <figure><a href="task3/screenshots/iteration-11-media-detail.png"><img src="task3/screenshots/iteration-11-media-detail.png" alt="Full photo and video below the Echo story, using synthetic media" loading="lazy"></a><figcaption>Full media replaces thumbnail selection; actual phone evaluation remains outstanding.</figcaption></figure>
+        </div>
+      </article>
     </section>
 
     <section class="closing-section">
