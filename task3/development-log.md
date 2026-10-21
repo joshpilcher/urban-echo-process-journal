@@ -543,3 +543,30 @@ Playback remains stable across valid GPS refreshes. Playing audio pauses other r
 
 
 **Published:** [Application PR #8](https://github.com/joshpilcher/urban-echo/pull/8) merged as `7a6a04c5596c492a8a53e4790ba528a1333e92e5`. The [Pages deployment](https://github.com/joshpilcher/urban-echo/actions/runs/39565101692) completed successfully. Screenshots are local browser evidence using labelled synthetic media/GPS.
+
+
+## 21 October 2026 — Iteration 12: shared Echoes become a conversation
+
+Joshua asked for likes and replies to other Echoes, plus an Activity destination in the bottom navigation. The Journal link is now replaced by Activity. The new social layer keeps the location-responsive model: a visitor must have a fresh GPS fix and be within the Echo’s reveal radius before the controls appear. Device-only Echoes remain private and cannot receive public interaction.
+
+A public Echo detail now has a Like button with a count and pressed state, followed by a reply thread and a short form. Likes are idempotent per anonymous browser identity and can be removed. Replies are limited to 500 characters, rendered as text, and can be deleted by their author. The control remains usable with keyboard focus and 44 px touch targets. A failed post keeps the draft so a temporary network problem does not erase someone’s response. Closing or relocking removes the interaction controls and clears the thread from view.
+
+Activity is owner-scoped: it combines recent likes and replies from other anonymous visitors on the current user’s public Echoes, identifies the related Echo title, and opens that Echo when selected. It does not show the owner’s own interactions or interactions on someone else’s Echoes. The browser identity is still anonymous and temporary; clearing site data loses access to that identity.
+
+The backend adds `urban_echo_likes` and `urban_echo_replies` with foreign keys to `urban_echoes`, cascade deletion, indexes for the feed, and RLS. Public reads are allowed, while inserts/deletes require the current authenticated anonymous user to match `user_id`. Policies block likes/replies on the creator’s own Echo and prevent forged author IDs or cross-user deletion. This additive schema does not modify existing media or Echo rows. Supabase advisors retain the previously documented anonymous-policy warning and report the new interaction indexes as currently unused in the small prototype; no new security class was introduced.
+
+**29 Node, 21 existing browser and 10 live interaction checks passed.** The live run used three isolated anonymous browser sessions and synthetic GPS/content. It verified shared discovery, duplicate-like idempotency, failed reply recovery, literal text rendering, Activity ownership, forged writes/deletes, GPS relocking, delete cascades, reply deletion and 320 px/landscape layouts. No real participant or field interaction is claimed.
+
+[Node results](iteration-12-node-results.txt) · [Regression results](iteration-12-regression-results.txt) · [Interaction results](iteration-12-interactions-results.txt)
+
+![Activity feed](screenshots/iteration-12-activity.png)
+
+*Activity shows recent likes and replies received on the owner’s public Echoes. Synthetic fixture and simulated GPS.*
+
+![Replies on an Echo](screenshots/iteration-12-replies.png)
+
+*Unlocked public Echo detail with the like control, reply thread and delete control for the current anonymous author. Synthetic content.*
+
+**Reflection:** likes make a quiet memory discoverable, while replies let people add their own relationship to a place. The 100 m gate keeps the interaction connected to being there, but it is still an interface rule rather than proof of physical presence. Activity is more useful than linking back to the process journal during a visitor session, while the journal remains available as a separate project link. Anonymous identity is convenient for a prototype but fragile across browsers and cleared site data. Next evaluation should test moderation, report/block behaviour, abuse limits and real multi-person use on phones.
+
+**Published:** [Application PR #9](https://github.com/joshpilcher/urban-echo/pull/9) merged as `6e8698d5f0467ded815b49a550640e80f6a29cfb`. The app Pages deployment is pending verification. Screenshots and checks use synthetic fixtures, not field evidence.
