@@ -287,6 +287,25 @@
         </div>
         <figure class="wide-figure"><a href="task3/screenshots/shared-discovery.png"><img src="task3/screenshots/shared-discovery.png" alt="Second isolated browser session displaying a photo memory from real shared storage, labelled simulated GPS and synthetic image" loading="lazy" style="max-width:390px;width:100%;display:block;margin:auto"></a><figcaption>Real cross-session photo discovery. Synthetic GPS and image; the test contribution was removed after verification.</figcaption></figure>
       </article>
+      <article class="development-update" aria-labelledby="mobile-cleanup-title">
+        <div class="section-grid">
+          <div><p class="kicker">Iteration 05 · 21 October 2026</p><h3 id="mobile-cleanup-title">Giving the mobile interface room to breathe</h3><p class="section-aside">User feedback prompted a focused mobile cleanup. Browser-tested with simulated GPS.</p></div>
+          <div class="prose">
+            <p>Joshua reported that the mobile UI needed improvement. The previous map sheet squeezed too much content into a small area, with tiny supporting text and clipped cards. Map now shows one readable preview and a visible View list action; Nearby and My Echoes use the full content area for browsing.</p>
+            <p>Larger type and 44 px controls, one primary Create Echo action, short-screen landscape handling, a persistent detail close toolbar and complete photo display improve the phone flow while retaining the Task 2 serif-and-teal direction.</p>
+            <p><strong>Verified:</strong> 13 Node checks and 20 browser checks passed, including small/large portrait and landscape bounds, full preview cards, scrolling and navigation, search, closing a long story, and form access in a reduced-height viewport. The new checks exposed document overflow and a clipped small-screen card; both were corrected. These are simulated browser checks, not physical phone or keyboard evaluation.</p>
+            <p><a href="task3/development-log.md">Read decisions, test output and remaining evaluation ↗</a> · <a href="https://joshpilcher.github.io/urban-echo/">Open Urban Echo ↗</a></p>
+          </div>
+        </div>
+        <div class="development-evidence">
+          <figure><a href="task3/screenshots/iteration-05-before.png"><img src="task3/screenshots/iteration-05-before.png" alt="Before cleanup: compact mobile sheet with tiny supporting text and constrained memory card, labelled simulated GPS" loading="lazy"></a><figcaption>Before: crowded version 0.3 mobile layout. Fresh browser capture with synthetic GPS and memories.</figcaption></figure>
+          <figure><a href="task3/screenshots/iteration-05-mobile.png"><img src="task3/screenshots/iteration-05-mobile.png" alt="After cleanup: readable single-card Map preview, visible View list button and primary Create Echo action, labelled simulated GPS" loading="lazy"></a><figcaption>After: readable Map preview and clearer hierarchy. 390 × 844 simulated browser test.</figcaption></figure>
+        </div>
+        <div class="development-evidence">
+          <figure><a href="task3/screenshots/iteration-05-nearby.png"><img src="task3/screenshots/iteration-05-nearby.png" alt="Full-height Nearby browsing screen with larger cards and filters" loading="lazy"></a><figcaption>Nearby dedicates the content area to reading and scrolling. The regression configuration is device-only.</figcaption></figure>
+          <figure><a href="task3/screenshots/iteration-05-photo-detail.png"><img src="task3/screenshots/iteration-05-photo-detail.png" alt="Photo detail with a persistent close toolbar and uncropped synthetic test image" loading="lazy"></a><figcaption>Photo detail retains the full image and keeps closing accessible during long reading.</figcaption></figure>
+        </div>
+      </article>
     </section>
 
     <section class="closing-section">

@@ -267,3 +267,50 @@ The next evaluation should involve an actual phone photo, a public contribution 
 *Actual published initial screen after cleanup, with no simulated memories or real location granted. The Sunshine Coast map is the app’s default view.*
 
 The completed Task 2 HTML was checked byte-for-byte against the original again and remains unchanged. This entry adds genuine Task 3 progress and preserves the earlier pending-state entries as a development record.
+
+
+## 21 October 2026 — Iteration 05: cleaning up the phone interface
+
+Joshua reported that the UI was not working well on mobile and asked for a cleanup. Reviewing the implemented layout showed a concrete problem: the map sheet compressed filters, status copy, privacy text, memory cards and creation into a limited-height overlay. Supporting text fell to 7–10 px, and the usable card area was too small. The original drag-handle-style button did not clearly communicate that it opened a larger list. This is user feedback and implementation review, not a new participant study.
+
+### Design changes implemented
+
+- **Map is a preview; Nearby is a reading/browsing screen.** The mobile map shows one complete memory preview and a visible View list control. Nearby and My Echoes fill the content area with readable, scrolling cards. Map or Show map returns to the map, and the navigation state now matches the displayed view.
+- **A clearer hierarchy.** Filters and explanatory text appear in the full list rather than competing with the compact preview. The serif headings and teal visual direction from Task 2 remain, with larger card/body text and controls at least 44 px high. The duplicate mobile Add item is removed; the visible Create Echo button remains the main creation action.
+- **Responsive space.** Small portrait screens use a shorter preview; short landscape screens put the map and preview side by side. The community status has its own readable line beneath the media filters. Hidden accessibility elements were positioned so they no longer add unwanted document overflow.
+- **Create and detail.** The creation dialog follows the dynamic viewport and keeps its close/header available while scrolling. The detail close control has a persistent toolbar for long stories, and mobile photos use contain sizing so the complete image is visible. Real phone keyboard/safe-area behaviour still needs physical-device evaluation.
+
+### Before and after
+
+![Mobile interface before cleanup](screenshots/iteration-05-before.png)
+
+*Fresh browser capture of version 0.3 before the cleanup. Simulated GPS and synthetic memories; this is not an outdoor photograph or user test.*
+
+![Cleaned-up mobile Map preview](screenshots/iteration-05-mobile.png)
+
+*390 × 844 browser viewport after the change. The test banner is outside the app area so it does not obscure the masthead. One complete card, a visible View list action and one primary Create Echo action replace the crowded compact sheet.*
+
+![Full-height Nearby list](screenshots/iteration-05-nearby.png)
+
+*The same implemented app in Nearby mode. GPS controls stay on Map while this screen prioritises cards, filters and scrolling. These regression captures deliberately use empty cloud configuration, so the device-only sharing notice describes the test configuration; the deployed app retains its real shared backend.*
+
+![Revised photo memory detail](screenshots/iteration-05-photo-detail.png)
+
+*Persistent close toolbar, larger story text and a complete synthetic test image. The teal graphic is a browser-drawn fixture, not a photograph from a visited place.*
+
+### Verification and issues caught
+
+**13 Node checks and 20 device-only browser checks passed.** The existing GPS permission/retry, temporary failure, proximity uncertainty, stale fix, local photo persistence/deletion and storage-error checks still pass. No backend schema, ownership policy or discovery threshold changed in this cleanup; the seven live backend checks from Iteration 04 were not rerun for this interface-only increment.
+
+New checks cover 320 × 568, 390 × 844, 430 × 932 and 844 × 390 layouts: document bounds, full compact-card visibility, separation of GPS and preview controls, reachable creation controls, a 44 px list-toggle target, switching navigation state, scrolling to and opening the last card, title search, closing a long memory after scrolling, and reaching form controls in a reduced-height viewport. The small-phone bounds check initially failed; correcting hidden-element positioning removed the document overflow. A later check caught a card clipped after spacing changes, and increasing the short-screen preview allocation corrected it. These failures were fixed rather than treating a successful wide-screen render as proof of mobile usability.
+
+[Browser results](iteration-05-browser-results.txt) · [Node results](iteration-05-node-results.txt)
+
+### Reflection and limits
+
+The main improvement is assigning different jobs to the two views: Map keeps place visible, while Nearby gives stories enough space. Showing one preview is a deliberate tradeoff; the count and View list button communicate that more Echoes exist. In a very short viewport, the preview omits the story excerpt and keeps the title/action; the full list remains available.
+
+This is a tested browser layout improvement, not proof that Joshua has found the phone experience satisfactory. Actual iOS Safari/Android Chrome browser chrome, the keyboard opening, safe-area insets, landscape use and screen-reader behaviour still need hands-on checks. The reduced-height browser test is a useful approximation, not a physical keyboard test. Outdoor GPS evaluation, participant observations, the final 1–3 minute showreel and Joshua’s personal final reflection remain outstanding. The completed Task 2 sections are preserved.
+
+
+**Deployment:** [Application PR #2](https://github.com/joshpilcher/urban-echo/pull/2) was merged as `461c3f136affe39ed789135e64f86009682a8b65`. The [Pages run](https://github.com/joshpilcher/urban-echo/actions/runs/39538677491) completed successfully and the published version 0.3.1 source was checked for the updated list toggle, detail toolbar and mobile stylesheet rules. The screenshots above are actual local browser renders of the tested implementation, rather than captures of a physical phone. The completed Task 2 HTML remains byte-for-byte unchanged.
