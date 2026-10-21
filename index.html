@@ -351,6 +351,21 @@
           <figure><a href="task3/screenshots/iteration-08-audio-preview.png"><img src="task3/screenshots/iteration-08-audio-preview.png" alt="Create Echo audio playback preview with Record video and Record audio controls, labelled synthetic microphone and simulated GPS" loading="lazy"></a><figcaption>Audio preview before saving; the required story can supply a readable alternative to spoken words.</figcaption></figure>
         </div>
       </article>
+      <article class="development-update" aria-labelledby="gallery-title">
+        <div class="section-grid">
+          <div><p class="kicker">Iteration 09 · 21 October 2026</p><h3 id="gallery-title">One place, several ways to remember</h3><p class="section-aside">Combining photos, video and audio within one Echo.</p></div>
+          <div class="prose">
+            <p>Joshua clarified that the media types should belong together in the same Echo. The previous one-attachment decision is now replaced by a collection: photos, recorded or imported audio and video can be added without removing previous selections. Each file has a preview and its own remove control, with a running count/size summary.</p>
+            <p>An Echo supports up to eight attachments and 50 MB combined, while retaining the existing per-file limits. Unlocked detail shows the complete ordered collection; valid GPS updates keep playback in place, while relocking hides all attachments and stops their players. Existing single-photo and recording Echoes remain compatible.</p>
+            <p><strong>Verified:</strong> 29 Node, 21 existing browser, 16 local media and 14 real shared-media checks passed. A mixed photo/audio/video Echo survives reload and plays in a second session. Forced upload/save failure retains the draft and cleans partial files before retry. Cross-owner deletion and forged gallery paths are rejected. Synthetic test rows/files were removed; real phone evaluation remains outstanding.</p>
+            <p><a href="task3/development-log.md">Read the storage decisions, test evidence and reflection ↗</a> · <a href="https://joshpilcher.github.io/urban-echo/">Open Urban Echo ↗</a></p>
+          </div>
+        </div>
+        <div class="development-evidence">
+          <figure><a href="task3/screenshots/iteration-08-video-detail.png"><img src="task3/screenshots/iteration-08-video-detail.png" alt="Previous iteration displaying a single synthetic video attachment" loading="lazy"></a><figcaption>Before: one media attachment per Echo. Synthetic video, simulated location.</figcaption></figure>
+          <figure><a href="task3/screenshots/iteration-09-detail.png"><img src="task3/screenshots/iteration-09-detail.png" alt="One unlocked Echo showing a photo, audio player and video together, labelled synthetic media and simulated GPS" loading="lazy"></a><figcaption>After: photo, audio and video in the same ordered Echo gallery. Browser capture with synthetic input.</figcaption></figure>
+        </div>
+      </article>
     </section>
 
     <section class="closing-section">

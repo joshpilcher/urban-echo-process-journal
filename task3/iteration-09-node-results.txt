@@ -1,0 +1,42 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> urban-echo@0.5.0 test
+> node --test tests/*.test.cjs
+
+✔ missing public config and secret keys disable sharing (4.031392ms)
+✔ public read normalises server fields without creating an anonymous account (1.061669ms)
+✔ public photo creation authenticates only on contribution and uses an owner-scoped path (0.904062ms)
+✔ upload failure does not insert the story (1.242982ms)
+✔ uncertain insert reconciles committed row and retains its photo (0.968649ms)
+✔ definite failed insert cleans photo while unknown outcome preserves it for retry (1.283253ms)
+✔ adapter rejects deleting another creator’s contribution (0.782799ms)
+✔ photo deletion failure leaves the Echo row untouched (0.818102ms)
+✔ recording creation uses a separate owner-scoped media path and MIME (1.554611ms)
+✔ recording type mismatch is rejected before storage or row insertion (0.707997ms)
+✔ a mixed gallery commits one row with ordered unique owner/Echo/file paths (1.83907ms)
+✔ partial gallery upload failure cleans attempted files and never inserts a partial Echo (0.745723ms)
+✔ gallery upload uncertainty preserves files for retry, and a committed row reconciles safely (1.355011ms)
+✔ gallery count and combined size limits reject before network writes (1.499148ms)
+✔ gallery deletion removes every photo and recording before its row (0.745302ms)
+✔ distance is in metres and handles identical and antipodal coordinates (1.246307ms)
+✔ discovery unlocks nearby content and relocks outside 100 metres (0.27272ms)
+✔ accuracy boundary and poor fixes do not reveal uncertain content (0.236586ms)
+✔ old, future, invalid and missing fixes cannot reveal or save memories (0.273732ms)
+✔ stored v0.1 records remain valid; malformed records are rejected (0.322325ms)
+✔ media formats select bounded video/audio types and reject unsupported input (0.293452ms)
+✔ recorded Echo metadata preserves old records and rejects ambiguous attachments (0.658642ms)
+✔ mixed galleries and legacy attachments normalise without losing types or order (1.241119ms)
+✔ stop produces media and releases every device track (4.218063ms)
+✔ cancel pending permission releases a late stream and never records (1.071314ms)
+✔ permission denial and missing support provide file fallback (1.75952ms)
+✔ video and audio automatically stop at their respective time limits (1.903096ms)
+✔ oversized and interrupted recordings are discarded with devices released (5.57123ms)
+✔ cancel active recording discards chunks and does not replace attachment (1.036771ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 29
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 106.940341

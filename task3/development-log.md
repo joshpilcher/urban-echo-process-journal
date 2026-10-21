@@ -431,3 +431,53 @@ The important remaining evaluation is physical phone testing: permission prompts
 
 
 **Published:** [Application PR #5](https://github.com/joshpilcher/urban-echo/pull/5) was merged as `742623233cc4aa857c53caa4c22679471fff33c1`. The [GitHub Pages deployment](https://github.com/joshpilcher/urban-echo/actions/runs/39551783053) completed successfully. Screenshots are local browser evidence, with synthetic input and simulated GPS labelled; they are not physical-phone captures.
+
+
+## 21 October 2026 — Iteration 09: combining media in one Echo
+
+Joshua clarified that he wants all media types in the same Echo. This revises the previous iteration’s one-attachment choice. The feature now treats an Echo as one location-tagged story with an ordered collection of photos, videos and audio, rather than asking the creator to choose a single medium.
+
+### Design and implementation
+
+The Create form appends media to the existing collection. Photo and audio/video file inputs support multiple selection; each new recording is added alongside the previous files. Each item has an individual preview and remove button, and a running count/combined size summary explains the limits. Invalid files do not remove the valid selections. The provisional limit is eight attachments and 50 MiB total, alongside the previous photo/video/audio per-file limits. Removing an item immediately frees its slot. Existing camera/microphone permission, Stop/Cancel and cleanup behaviour remains.
+
+Unlocked detail renders all attachments in order with numbered captions and native controls. Each player keeps its DOM identity through valid GPS refreshes and asynchronous loading of other files, so loading a photo does not restart a video. Relocking removes all images/players and pauses playback. Nearby cards show the attachment count/types; map/list request only a cover photo thumbnail, not the full recordings. Native players remain user-controlled; no autoplay is added.
+
+New local records store a small array of attachment IDs/types, with each blob separately in IndexedDB. If storing a later blob or the metadata fails, newly written blobs are removed and the draft stays intact. Reading old `photoId`/`photoPath` or `mediaKind`/`mediaId`/`mediaPath` records normalises them to a one-item gallery without rewriting the original memory or database store.
+
+Public Echoes use an additive `attachments` JSONB column on the existing table. A server CHECK validates array shape, a maximum of eight items, unique UUID item IDs, allowed photo/audio/video kinds/extensions and exact creator/Echo/file paths. A non-empty collection cannot coexist with old single-media fields. The validator is immutable and security-invoker, has an empty search path, and performs no privileged operations. Existing RLS, grants, photo/recording buckets and owner-folder policies remain. No new exposed table is introduced.
+
+Uploads finish before one Echo row is inserted. If a file upload fails partway through, the adapter checks whether the Echo already committed before cleaning attempted paths. It retains files when the outcome cannot be established, protecting a potentially successful contribution. Creator deletion groups all paths by bucket and removes them before deleting the row. Public media remains public outside the in-app proximity interaction.
+
+### Verification
+
+**29 Node checks passed**, including legacy/mixed record compatibility, ordered unique paths, one-row collection creation, count/size limits, partial upload cleanup, uncertain-outcome reconciliation and deleting all gallery items. **21 existing browser checks passed**, retaining GPS, photo, persistence, navigation and responsive coverage. The photo persistence test initially used the old `photoId` field; its accessor was updated to the new normalised attachment ID while retaining the JPEG type, size, dimensions, reload, relocking and blob deletion assertions.
+
+**16 local media browser checks passed.** The new mixed case adds two synthetic photos plus actual browser-encoded audio/video from synthetic devices, removes one photo while keeping both recordings, fills all eight slots, removes extra items, rejects a bad file without clearing the others, checks small/large/landscape dialog bounds, and saves a photo/audio/video Echo. A forced localStorage failure confirms blob cleanup and the intact three-file draft, followed by a successful retry. Reload reveals all three types together; GPS refresh keeps the players, moving outside range removes all media and pauses them, and deletion removes every blob.
+
+**14 real shared-media checks passed** against the dedicated Supabase project. The mixed case forces the second file’s upload to fail, verifies no partial Echo or files remain, and retries with the whole draft. All three media types then play in another anonymous session. That session cannot delete the creator’s files/row, and an attempted own-row insert referencing another creator’s gallery paths is rejected by the database CHECK (`23514`). The creator deletes every photo/recording and its Echo. Final read-back counts show zero synthetic Echo rows and zero nested gallery photo/recording objects. Anonymous test Auth accounts remain and are not participants.
+
+[Node output](iteration-09-node-results.txt) · [Existing browser output](iteration-09-regression-results.txt) · [Local media output](iteration-09-media-results.txt) · [Real shared-media output](iteration-09-shared-results.txt)
+
+![Mixed media draft](screenshots/iteration-09-create.png)
+
+*Actual browser form after adding a photo, audio and video and rejecting an invalid file. The validation message and all valid selections remain visible. Synthetic media and simulated GPS are labelled.*
+
+![One Echo displaying all media types](screenshots/iteration-09-detail.png)
+
+*One unlocked Echo with a photo, audio player and video, captured at 390 × 844. These are synthetic browser camera/microphone/image fixtures, not field recordings.*
+
+### Backend review and limits
+
+Read-back queries confirmed the new column and validated mixed input, wrong JSON shape, missing fields, duplicate IDs and foreign-owner paths. The advisor returned the same previously documented categories: [intentional anonymous contributor policies](https://supabase.com/docs/guides/database/database-advisors?queryGroups=lint&lint=0012_auth_allow_anonymous_sign_ins) and [leaked-password protection disabled](https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection) on the unused email/password provider. No new advisor category was introduced by the validator. Actual two-session tests accompany this review.
+
+The database enforces collection count and metadata paths, while bucket MIME/per-file size rules remain. Combined 50 MiB and clip duration limits are client checks, not server inspection. Files and the Echo row are separate service operations: unknown outcomes can leave temporary orphans, and a failed later deletion can leave a visible Echo with some missing files until retry. There is still no media transcoder, moderation interface, automatic transcript or account recovery. Cross-device codecs and real upload times need physical phone testing.
+
+### Reflection
+
+The earlier single-attachment design simplified capture, but Joshua’s feedback exposed an unnecessary creative restriction: a photo, a voice and movement can describe complementary parts of the same place. Keeping them under one story and pin makes that relationship explicit. The cost is a longer creation/detail flow and more upload work, so individual removal, a visible count and bounded storage are now more useful than automatic replacement.
+
+The limits remain design choices rather than field-validated thresholds. Next evaluation should use real iOS/Android devices to test adding mixed files, permissions, keyboard/scrolling, upload delays, codec playback, leaving the foreground and outdoor approach/reveal. No real photographs/recordings, new participants or physical-device outcomes have been invented. Completed Task 2 content remains unchanged.
+
+
+**Published:** [Application PR #6](https://github.com/joshpilcher/urban-echo/pull/6) was merged as `18463dd0629bc0b71ca83ce3e817f9f4eae3560b`. The [Pages deployment](https://github.com/joshpilcher/urban-echo/actions/runs/39557389331) completed successfully. The evidence above is local browser capture with synthetic input and simulated GPS, not a physical-phone test.
