@@ -570,3 +570,12 @@ The backend adds `urban_echo_likes` and `urban_echo_replies` with foreign keys t
 **Reflection:** likes make a quiet memory discoverable, while replies let people add their own relationship to a place. The 100 m gate keeps the interaction connected to being there, but it is still an interface rule rather than proof of physical presence. Activity is more useful than linking back to the process journal during a visitor session, while the journal remains available as a separate project link. Anonymous identity is convenient for a prototype but fragile across browsers and cleared site data. Next evaluation should test moderation, report/block behaviour, abuse limits and real multi-person use on phones.
 
 **Published:** [Application PR #9](https://github.com/joshpilcher/urban-echo/pull/9) merged as `6e8698d5f0467ded815b49a550640e80f6a29cfb`. The [Pages deployment](https://github.com/joshpilcher/urban-echo/actions/runs/39567000791) completed successfully. Screenshots and checks use synthetic fixtures, not field evidence.
+
+
+## 21 October 2026 — Iteration 13: removing floating map titles
+
+Joshua’s iPhone screenshot showed an Echo title compressed into a tall, one-character-wide tooltip over the map after returning from a memory. Echo markers no longer bind a floating title tooltip or reopen it after selecting a detail. The native HTML title is also removed; the marker retains an accessible alternative label. Titles remain available in the Nearby list and the Echo detail. This keeps the map focused on location and avoids the intrusive vertical label on small screens.
+
+The browser regression case now checks literal title rendering in the detail, no Echo tooltip after returning to the map, and no native marker title attribute. These are browser checks rather than a physical iPhone retest. No GPS, storage or interaction policy changes were needed.
+
+**Verification:** all 21 browser regression checks passed, including the revised no-floating-title case. [Browser results](iteration-13-regression-results.txt). [App commit](https://github.com/joshpilcher/urban-echo/commit/3e6c5fdeae4d6888e3958d6b0fe135d32bfa793a).
