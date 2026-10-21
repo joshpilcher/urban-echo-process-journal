@@ -481,3 +481,37 @@ The limits remain design choices rather than field-validated thresholds. Next ev
 
 
 **Published:** [Application PR #6](https://github.com/joshpilcher/urban-echo/pull/6) was merged as `18463dd0629bc0b71ca83ce3e817f9f4eae3560b`. The [Pages deployment](https://github.com/joshpilcher/urban-echo/actions/runs/39557389331) completed successfully. The evidence above is local browser capture with synthetic input and simulated GPS, not a physical-phone test.
+
+
+## 21 October 2026 — Iteration 10: returning to the original Echo detail composition
+
+Joshua requested a multi-attachment viewing interface closer to the original Task 2 mock-up. Reviewing its centre screen showed a clear hierarchy: a large lead image, rounded story panel, compact audio and a small photo gallery. Iteration 09 had established mixed-media functionality, but stacked every attachment before the text, pushing the meaning of the Echo too far down the page.
+
+The revised view uses one main photo or video above the story. A photo is selected first when available. Beneath the story/date, compact audio cards retain native playback, seeking and volume controls. A grid of labelled thumbnails selects photos/videos in the main viewing area, with a selected border and `aria-pressed` state. Video thumbnails use an explicit video icon. The main photo uses contain sizing to keep the complete image visible; smaller thumbnail crops make the collection easier to scan.
+
+The lead area is shorter on phones than the previous stack, letting the title, story and audio appear sooner. The rounded story panel overlaps the image edge as in the original design. Extra space beneath video controls prevents that overlap from covering the native playback bar. The view handles photo/video collections, multiple audio recordings, audio-only and text-only Echoes. Existing creation, limits, metadata, storage and backend policies remain unchanged.
+
+Playback uses persistent elements across valid GPS renders and thumbnail selection, retaining positions. Hidden videos pause; playing one recording pauses any other recording in the Echo. Relocking clears the main media, audio and thumbnails and pauses players. A new close test exposed the asynchronous timing of the dialog close event: the handler could run after an immediate playback assertion. Close and Escape now pause all players directly, with the close event remaining as a fallback. This was corrected before publication.
+
+**29 Node, 21 existing browser and 17 local media checks passed.** The new UI case verifies one visible main visual, thumbnail selection and pressed states, keyboard Enter activation, audio placed after the story, at least 44 px thumbnail targets, no dialog overflow at 320 × 568 / 390 × 844 / 844 × 390, one active recording, video pause on switching, and audio pause on Close/Escape. Existing actual browser encoding, preview, mixed attachment persistence/reload, save-failure recovery, GPS relocking and deletion cases remain. These checks use synthetic camera/microphone/image input and simulated GPS.
+
+[Node results](iteration-10-node-results.txt) · [Existing browser results](iteration-10-regression-results.txt) · [Local media results](iteration-10-media-results.txt)
+
+![Original multi-media stack](screenshots/iteration-09-detail.png)
+
+*Previous iteration’s synthetic fixture: all full-size media appears before the story.*
+
+![Revised photo detail](screenshots/iteration-10-photo-detail.png)
+
+*New 390 × 844 browser view: lead photo, story, audio and thumbnails. The test fixture uses a shorter descriptive title and explicitly labelled synthetic media/GPS. It is not a real visitor memory or outdoor photograph.*
+
+![Selected video in the lead area](screenshots/iteration-10-detail.png)
+
+*Selecting the video thumbnail brings that recording into the main area. Native controls remain accessible above the rounded story panel.*
+
+**Reflection:** grouping the attachments visually was not enough: their relationship to the story matters. The original mock-up gives the text a central place and treats the rest of the media as supporting moments. This change follows that hierarchy while keeping genuine playback controls and the working collection model. It also avoids making each additional file lengthen the page by a full image or video height. Multiple audio cards can still lengthen a large collection; this needs evaluation with real use rather than assuming the new arrangement is optimal.
+
+The prior 14 real shared-media checks were not repeated because no backend behaviour or upload code changed. Physical iOS/Android controls, thumb reach, screen-reader use and outdoor discovery remain untested here. The original Task 2 content stays preserved. No new participant results, actual recordings or field evaluation are claimed.
+
+
+**Published:** [Application PR #7](https://github.com/joshpilcher/urban-echo/pull/7) was merged as `f5c2c8582e542c12e8cffb8413e88c933bbd2914`. The [Pages deployment](https://github.com/joshpilcher/urban-echo/actions/runs/39561202576) completed successfully. The screenshots above are local browser evidence, with synthetic media and simulated GPS labelled.

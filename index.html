@@ -366,6 +366,21 @@
           <figure><a href="task3/screenshots/iteration-09-detail.png"><img src="task3/screenshots/iteration-09-detail.png" alt="One unlocked Echo showing a photo, audio player and video together, labelled synthetic media and simulated GPS" loading="lazy"></a><figcaption>After: photo, audio and video in the same ordered Echo gallery. Browser capture with synthetic input.</figcaption></figure>
         </div>
       </article>
+      <article class="development-update" aria-labelledby="detail-composition-title">
+        <div class="section-grid">
+          <div><p class="kicker">Iteration 10 · 21 October 2026</p><h3 id="detail-composition-title">Returning to the original detail design</h3><p class="section-aside">A main image, the story, sound and a compact gallery.</p></div>
+          <div class="prose">
+            <p>Joshua requested a multi-attachment viewing interface closer to the original mock-up. The long stack of full-size media is replaced by one lead photo/video above a rounded story panel. Audio sits below the story/date in compact cards, and photo/video thumbnails switch the main visual.</p>
+            <p>Selected thumbnails announce their state and work with the keyboard. The lead image retains the complete photo; thumbnail crops help scanning. Native audio controls remain functional. Playing one recording pauses other playback, hiding a video pauses it, and Close/Escape now pause every player immediately.</p>
+            <p><strong>Verified:</strong> 29 Node, 21 existing browser and 17 local media checks passed, including responsive bounds, 44 px thumbnails, keyboard selection, playback preservation through GPS updates, media switching, closing and relocking. Synthetic browser media/GPS are labelled. Creation, storage and backend policies are unchanged; the previous live shared-service tests were not rerun for this UI increment.</p>
+            <p><a href="task3/development-log.md">Read the design decisions, evidence and remaining evaluation ↗</a> · <a href="https://joshpilcher.github.io/urban-echo/">View the updated app ↗</a></p>
+          </div>
+        </div>
+        <div class="development-evidence">
+          <figure><a href="task3/screenshots/iteration-09-detail.png"><img src="task3/screenshots/iteration-09-detail.png" alt="Previous detail layout stacking a photo, audio and video before the Echo story, labelled synthetic media" loading="lazy"></a><figcaption>Before: full media items stack above the story. Synthetic input and simulated location.</figcaption></figure>
+          <figure><a href="task3/screenshots/iteration-10-photo-detail.png"><img src="task3/screenshots/iteration-10-photo-detail.png" alt="Updated Echo detail with one lead image, rounded story panel, audio card and selectable thumbnails, labelled synthetic media" loading="lazy"></a><figcaption>After: the original mock-up’s hierarchy, using an explicitly synthetic browser fixture.</figcaption></figure>
+        </div>
+      </article>
     </section>
 
     <section class="closing-section">
