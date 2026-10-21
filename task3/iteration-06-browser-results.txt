@@ -1,0 +1,28 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> urban-echo@0.3.2 test:browser
+> node tests/browser.cjs
+
+Browser: Chromium 133.0.6943.0
+Offline check: external map tiles/fonts blocked; testing local GPS/list workflow.
+PASS no implicit GPS prompt and empty browser state
+PASS permission denial releases watcher and retry creates exactly one watcher
+PASS temporary GPS interruption recovers on the existing watcher
+PASS save uses GPS rather than map centre; memory and coordinates persist after reload
+PASS physical movement simulation locks and unlocks story with accuracy uncertainty
+PASS poor GPS disables creation and prevents unlock
+PASS draft survives GPS failure, rejects save until recovered, then saves at latest position
+PASS stop clears location, relocks memories and ignores queued old callbacks
+PASS HTML in user title renders as text in both card and Leaflet tooltip
+PASS storage quota failure preserves form draft without adding memory
+PASS photo validation rejects unsupported and unreadable files without losing the draft
+PASS photo is resized and re-encoded, persists separately from text, and relocks in open detail
+PASS malformed saved data is preserved and cannot be overwritten by creation
+PASS mobile form and layout fit 320, 390, 768 and desktop 1440 pixel widths
+PASS phone map fills its content area and compact controls stay separate at all sizes
+PASS mobile search, long memory close control and short create viewport remain accessible
+PASS fresh fix expires after 30 seconds and old incoming fix is rejected
+PASS application throws no uncaught browser errors
+PASS browser geolocation API integration starts and responds to changed coordinates
+PASS GPS and creation still work when the Leaflet script fails to load
+RESULT: 20 browser checks passed. GPS and content were simulated; physical-device testing remains outstanding.

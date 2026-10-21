@@ -306,6 +306,21 @@
           <figure><a href="task3/screenshots/iteration-05-photo-detail.png"><img src="task3/screenshots/iteration-05-photo-detail.png" alt="Photo detail with a persistent close toolbar and uncropped synthetic test image" loading="lazy"></a><figcaption>Photo detail retains the full image and keeps closing accessible during long reading.</figcaption></figure>
         </div>
       </article>
+      <article class="development-update" aria-labelledby="map-first-title">
+        <div class="section-grid">
+          <div><p class="kicker">Iteration 06 · 21 October 2026</p><h3 id="map-first-title">Putting the map first</h3><p class="section-aside">A second mobile refinement following Joshua’s request for more map space.</p></div>
+          <div class="prose">
+            <p>The mobile preview sheet is now removed from Map. The map fills the content area, while Echo cards remain in Nearby and My Echoes. Create and recenter float along the bottom; the large GPS window becomes a compact top-left chip with details and Stop tracking available on demand.</p>
+            <p>The initial map view is one zoom level closer, as are the first GPS-centred view and recenter. No location is requested automatically, and the existing proximity and GPS freshness rules are retained.</p>
+            <p><strong>Verified:</strong> 13 Node checks and 20 browser checks passed, including full map coverage at small, large and landscape phone sizes; separate 44 px controls; GPS details; keyboard skip navigation; Nearby browsing; and rendered map zoom levels. Screenshots use simulated location and synthetic memories. Outdoor testing remains outstanding.</p>
+            <p><a href="task3/development-log.md">Read the feedback, tradeoffs and test output ↗</a> · <a href="https://joshpilcher.github.io/urban-echo/">Open Urban Echo ↗</a></p>
+          </div>
+        </div>
+        <div class="development-evidence">
+          <figure><a href="task3/screenshots/iteration-06-mobile.png"><img src="task3/screenshots/iteration-06-mobile.png" alt="Mobile map filling the content area with a compact GPS chip and floating Create and recenter controls, labelled simulated GPS" loading="lazy"></a><figcaption>More space for place: no default memory sheet over Map. 390 × 844 browser test.</figcaption></figure>
+          <figure><a href="task3/screenshots/iteration-06-location-details.png"><img src="task3/screenshots/iteration-06-location-details.png" alt="GPS information and Stop tracking opened on demand from the small location chip" loading="lazy"></a><figcaption>Location details remain available when requested and can be closed again.</figcaption></figure>
+        </div>
+      </article>
     </section>
 
     <section class="closing-section">

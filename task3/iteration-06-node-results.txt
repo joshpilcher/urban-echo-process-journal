@@ -1,0 +1,25 @@
+
+> urban-echo@0.3.2 test
+> node --test tests/*.test.cjs
+
+✔ missing public config and secret keys disable sharing (4.714229ms)
+✔ public read normalises server fields without creating an anonymous account (1.272044ms)
+✔ public photo creation authenticates only on contribution and uses an owner-scoped path (1.264702ms)
+✔ upload failure does not insert the story (1.410683ms)
+✔ uncertain insert reconciles committed row and retains its photo (1.095827ms)
+✔ definite failed insert cleans photo while unknown outcome preserves it for retry (1.768254ms)
+✔ adapter rejects deleting another creator’s contribution (0.929997ms)
+✔ photo deletion failure leaves the Echo row untouched (0.87302ms)
+✔ distance is in metres and handles identical and antipodal coordinates (1.211332ms)
+✔ discovery unlocks nearby content and relocks outside 100 metres (0.254275ms)
+✔ accuracy boundary and poor fixes do not reveal uncertain content (0.208535ms)
+✔ old, future, invalid and missing fixes cannot reveal or save memories (0.308086ms)
+✔ stored v0.1 records remain valid; malformed records are rejected (0.29157ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 105.625812
