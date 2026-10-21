@@ -354,3 +354,29 @@ Physical phone browser chrome, touch behaviour, GPS accuracy and outdoor approac
 
 
 **Published:** [Application PR #3](https://github.com/joshpilcher/urban-echo/pull/3) was merged as `fc7f566b99e62529621ffad6335228c467b6b79e`. The [Pages deployment](https://github.com/joshpilcher/urban-echo/actions/runs/39541162068) succeeded. A fresh HTTPS request confirmed version 0.3.2 and the published initial/GPS zoom settings. The images above are local browser evidence of the tested mobile implementation, with simulated GPS explicitly labelled; they are not physical phone captures.
+
+
+## 21 October 2026 — Iteration 07: replacing the top filters with a discovery prompt
+
+Joshua asked to remove the top filters because they felt unnecessary, while adding something purposeful to Map so it would not feel empty. The All/Photos/Stories toolbar is removed, along with its unused media-filter state. Title search and the All Echoes/Within reach choices inside Nearby remain available.
+
+Map now has one small discovery card. Without a fresh location it invites the visitor to find a story nearby. With a usable fix it shows the actual number of loaded Echoes within reach; when none are available, it says so and suggests leaving a memory or exploring Nearby. It also has copy for uncertain GPS and shared-read failure. The card does not insert example memories or invent nearby activity to fill the screen.
+
+Tapping the card opens Nearby with Within reach selected when there is an unlocked Echo, otherwise All Echoes. Shared refresh is retained as a labelled icon beside the prompt, and the existing community loading status is still announced for accessibility. The compact GPS control moves down above Create so that it does not compete with the new card. Removing the toolbar also gives its height back to the map, while keeping the lighter serif/teal visual direction.
+
+![Map before removing the toolbar](screenshots/iteration-06-mobile.png)
+
+*Previous iteration: media filters above the map, with most of Map left open. Actual browser capture with simulated location.*
+
+![Map with live discovery prompt and no top media filters](screenshots/iteration-07-mobile.png)
+
+*Implemented 390 × 844 mobile browser view. The count comes from the synthetic test memories and simulated GPS; it is not a claim of real nearby activity. The regression configuration is device-only, so the shared-refresh icon is hidden in this capture. The deployed build retains its connected shared storage.*
+
+**13 Node checks and 21 browser checks passed.** The added check exercises the discovery card’s GPS-dependent text, its shortcut into Nearby and the correct list filter for nearby versus distant memories. Existing checks now also assert that the media-filter controls are absent and that the discovery prompt, compact GPS, Create and recenter controls remain separated across 320 × 568, 390 × 844, 430 × 932 and 844 × 390 viewports. Existing GPS lifecycle, uncertainty, stale fix, photo, storage and accessible-navigation cases still pass. An early failure was in test setup: the shortcut check ran before its synthetic records were loaded; moving fixture installation before that check corrected the setup without weakening the assertion.
+
+[Browser output](iteration-07-browser-results.txt) · [Node output](iteration-07-node-results.txt)
+
+**Reflection:** this gives Map a clear next action and a sense of discovery without returning to a large memory sheet. The content is responsive to location rather than being a static marketing card. The tradeoff is that photo/story browsing is no longer a top-level filter; if people later need it, that choice could be placed inside Nearby. Physical phone touch, screen-reader use and outdoor GPS behaviour still need evaluation. No new field results, real photographs or participant feedback beyond Joshua’s request have been invented. Backend policies and storage behaviour were not changed, and the earlier real shared-service tests were not rerun for this interface increment. Completed Task 2 content remains preserved.
+
+
+**Published:** [Application PR #4](https://github.com/joshpilcher/urban-echo/pull/4) was merged as `20181bdef6b439e7eca9599a26cb1cc75d9af00b`. The [Pages deployment](https://github.com/joshpilcher/urban-echo/actions/runs/39542484170) completed successfully. Screenshots above are local browser evidence with simulated GPS, not physical phone captures.

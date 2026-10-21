@@ -321,6 +321,21 @@
           <figure><a href="task3/screenshots/iteration-06-location-details.png"><img src="task3/screenshots/iteration-06-location-details.png" alt="GPS information and Stop tracking opened on demand from the small location chip" loading="lazy"></a><figcaption>Location details remain available when requested and can be closed again.</figcaption></figure>
         </div>
       </article>
+      <article class="development-update" aria-labelledby="discovery-prompt-title">
+        <div class="section-grid">
+          <div><p class="kicker">Iteration 07 · 21 October 2026</p><h3 id="discovery-prompt-title">A purpose for the open map</h3><p class="section-aside">Replacing unnecessary controls with a live discovery prompt.</p></div>
+          <div class="prose">
+            <p>Joshua asked to remove the top media filters and add something to Map so it would not feel empty. The All/Photos/Stories toolbar is gone. A compact card now responds to GPS and the actual within-reach count, with honest no-location, empty and uncertain states.</p>
+            <p>Tapping it opens the relevant Nearby view. Refresh remains available as a labelled icon, while the GPS chip moves above Create to leave space around the new prompt. No example activity is added to fill the map.</p>
+            <p><strong>Verified:</strong> 13 Node and 21 browser checks passed, including the prompt’s text and navigation, filter removal, layout separation at small/large/landscape sizes and the existing GPS/photo/storage cases. These are simulated browser checks, not new outdoor results.</p>
+            <p><a href="task3/development-log.md">Read decisions, verification and tradeoffs ↗</a> · <a href="https://joshpilcher.github.io/urban-echo/">Open Urban Echo ↗</a></p>
+          </div>
+        </div>
+        <div class="development-evidence">
+          <figure><a href="task3/screenshots/iteration-06-mobile.png"><img src="task3/screenshots/iteration-06-mobile.png" alt="Previous mobile Map with the All Photos Stories toolbar, labelled simulated GPS" loading="lazy"></a><figcaption>Before: toolbar filters take space above the map.</figcaption></figure>
+          <figure><a href="task3/screenshots/iteration-07-mobile.png"><img src="task3/screenshots/iteration-07-mobile.png" alt="Map with no media toolbar and a small card showing one synthetic Echo within reach, labelled simulated GPS" loading="lazy"></a><figcaption>After: one discovery prompt with a real test-data count and a Nearby shortcut. Simulated GPS, device-only regression configuration.</figcaption></figure>
+        </div>
+      </article>
     </section>
 
     <section class="closing-section">
