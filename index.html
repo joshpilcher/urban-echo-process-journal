@@ -336,6 +336,21 @@
           <figure><a href="task3/screenshots/iteration-07-mobile.png"><img src="task3/screenshots/iteration-07-mobile.png" alt="Map with no media toolbar and a small card showing one synthetic Echo within reach, labelled simulated GPS" loading="lazy"></a><figcaption>After: one discovery prompt with a real test-data count and a Nearby shortcut. Simulated GPS, device-only regression configuration.</figcaption></figure>
         </div>
       </article>
+      <article class="development-update" aria-labelledby="recordings-title">
+        <div class="section-grid">
+          <div><p class="kicker">Iteration 08 · 21 October 2026</p><h3 id="recordings-title">Giving a place a voice</h3><p class="section-aside">Recording short videos and audio alongside written and photographic memories.</p></div>
+          <div class="prose">
+            <p>Joshua requested video and audio recording. Create now offers explicit Record video and Record audio actions, a live camera preview or timer, Stop/Cancel, playback preview and removal. Each Echo has one optional attachment. An expandable file chooser provides a fallback when recording is unavailable.</p>
+            <p>Video is limited to 30 seconds / 20 MB, audio to 60 seconds / 8 MB. Device recordings stay in IndexedDB; explicitly public recordings use a separate Supabase bucket with creator-scoped upload and deletion. Existing photos and Task 2 sections are preserved. Playback stops when the Echo relocks, but continues across valid GPS updates.</p>
+            <p><strong>Verified:</strong> 23 Node, 21 existing regression, 12 local media and 9 real shared-media browser checks passed. The media checks use actual browser encoding with synthetic camera/microphone input and simulated GPS, including second-session playback and rejected cross-owner writes. Test rows/files were removed. Physical phone capture, codec compatibility and outdoor evaluation remain outstanding.</p>
+            <p><a href="task3/development-log.md">Read the implementation, evidence and limitations ↗</a> · <a href="https://joshpilcher.github.io/urban-echo/">Try the updated prototype ↗</a></p>
+          </div>
+        </div>
+        <div class="development-evidence">
+          <figure><a href="task3/screenshots/iteration-08-video-recording.png"><img src="task3/screenshots/iteration-08-video-recording.png" alt="Create Echo recording video from Chromium’s synthetic camera, with simulated GPS and visible Stop and Cancel controls" loading="lazy"></a><figcaption>Live video capture in a 390 × 844 browser viewport. Synthetic camera and microphone, simulated location.</figcaption></figure>
+          <figure><a href="task3/screenshots/iteration-08-audio-preview.png"><img src="task3/screenshots/iteration-08-audio-preview.png" alt="Create Echo audio playback preview with Record video and Record audio controls, labelled synthetic microphone and simulated GPS" loading="lazy"></a><figcaption>Audio preview before saving; the required story can supply a readable alternative to spoken words.</figcaption></figure>
+        </div>
+      </article>
     </section>
 
     <section class="closing-section">

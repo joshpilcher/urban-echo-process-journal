@@ -380,3 +380,54 @@ Tapping the card opens Nearby with Within reach selected when there is an unlock
 
 
 **Published:** [Application PR #4](https://github.com/joshpilcher/urban-echo/pull/4) was merged as `20181bdef6b439e7eca9599a26cb1cc75d9af00b`. The [Pages deployment](https://github.com/joshpilcher/urban-echo/actions/runs/39542484170) completed successfully. Screenshots above are local browser evidence with simulated GPS, not physical phone captures.
+
+
+## 21 October 2026 — Iteration 08: recording sound and moving images
+
+Joshua asked to add the ability to record videos and audio. This extends the core idea: a location can hold a voice, a short moving scene or an ambient sound, as well as a written story or photograph. This is a requested feature, not a new participant finding.
+
+### Implementation and decisions
+
+- Each Echo has one optional attachment: photo, video or audio. This keeps the mobile creation flow understandable and avoids multiple uploads competing with the GPS-dependent save. Existing photo/text records, the original localStorage key and the IndexedDB database/store remain compatible.
+- Explicit Record buttons request camera/microphone permission. Video prefers the rear camera and includes microphone audio; audio requests only a microphone. The browser chooses a supported MP4/WebM/Ogg recording MIME rather than assuming one codec. Video shows a live muted inline preview; audio shows elapsed time. Stop/Cancel controls scroll into view and Stop receives focus once recording starts.
+- Video stops at 30 seconds and is limited to 20 MiB; audio stops at 60 seconds and is limited to 8 MiB. Recordings have playback previews and can be removed/replaced before saving. File selection is available in an expandable fallback. Type, size, playback metadata and readable duration are checked. Imported files are not transcoded or stripped of metadata; the form says so. Existing photo re-encoding still removes original EXIF.
+- Track cleanup covers stop, cancel, permission resolving after cancellation, capture errors, dialog close, hidden document and page exit. Leaving the foreground cancels an active recording rather than silently recording in the background. Text and an existing prepared attachment remain available for retry. Saving is disabled during capture/preparation; a fresh GPS fix remains required at save time.
+- Local blobs use IndexedDB; only a media ID/type is added to the small saved record. Public contributions upload to the new `urban-echo-recordings` bucket. An additive schema migration adds nullable media fields, allowed kind/path checks, a one-attachment constraint and owner-folder Storage policies. The original photo bucket and its limits are unchanged.
+- Map/list use media icons and do not preload recordings. Detail views use native audio/video controls with no autoplay and show playback errors. Valid GPS renders preserve the player element/position; relocking and closing stop playback. Required story text provides a place to transcribe spoken words. Automatic transcripts/captions are future work.
+
+### Verification
+
+**23 Node checks passed**, covering location rules, legacy/new record validation, upload adapter behaviour, MIME/limits and capture lifecycle with fake devices/clock. **21 existing browser regression checks passed**, preserving GPS, photo, storage, navigation and responsive behaviour. **12 local media browser checks passed** using actual Chromium MediaRecorder encoding with its synthetic camera/microphone: denial/unsupported fallback, closing camera and checking ended tracks, file size/type/duration validation, valid WAV import/removal at small and landscape sizes, preview, recording, reload persistence, actual playback, unchanged player across GPS updates, relocking and deletion. A failed photo replacement also retains an already prepared audio attachment.
+
+**9 real shared-media checks passed** against the dedicated Supabase project. Audio and video were recorded, uploaded and played after reload and in another anonymous browser session. Cross-owner row deletion, object deletion and upload were rejected, and the creator removed both row and recording. A final database/storage read-back found zero synthetic recording rows and zero recording objects. Anonymous test Auth accounts remain; they are not participants.
+
+Early harness runs tried clicking navigation/Refresh controls while their containing view was hidden. The tests were corrected to navigate through the visible Map screen first. Playback assertions were retained. Browser installation via the normal Playwright download failed in this environment; the existing alternative approach used the official Chromium 133 package with Playwright 1.62.1. Tests on that browser do not establish support on current physical iOS/Android devices.
+
+[Node results](iteration-08-node-results.txt) · [Existing regression results](iteration-08-regression-results.txt) · [Local media results](iteration-08-media-results.txt) · [Real shared-media results](iteration-08-shared-results.txt)
+
+![Video recording controls](screenshots/iteration-08-video-recording.png)
+
+*Actual application capture at 390 × 844, using Chromium’s synthetic camera and microphone plus simulated GPS. The green test image is a device fixture, not outdoor footage.*
+
+![Audio recording preview](screenshots/iteration-08-audio-preview.png)
+
+*Audio can be previewed and removed before saving. This is synthetic microphone input, not a personal recording.*
+
+![Unlocked video detail](screenshots/iteration-08-video-detail.png)
+
+*Native video controls in the unlocked detail view. Synthetic content and simulated location, explicitly labelled.*
+
+### Backend verification and limits
+
+Read-back queries confirmed the added columns, CHECK constraint, allowed bucket types/size and three creator-folder policies. RLS remains enabled and existing least-privilege grants remain. The security advisor reports the same categories as before: [deliberately anonymous access policies](https://supabase.com/docs/guides/database/database-advisors?queryGroups=lint&lint=0012_auth_allow_anonymous_sign_ins), now also covering recordings, and [leaked-password protection disabled](https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection) on the unused email/password provider. Real ownership tests accompany the policy review.
+
+The Storage bucket enforces a 20 MiB MIME/size limit. Clip duration and the stricter 8 MiB audio limit are client validation, not server-side media inspection. Public URLs remain public; proximity is a discovery interaction, not confidentiality. No moderation/transcoding service or recovery flow has been added. Browser/codec playback may differ between devices, particularly imported formats. Public upload/row creation and deletion remain separate operations with the previously documented partial-network-failure limitations.
+
+### Reflection and next evaluation
+
+Audio makes the concept more about the experience of a place: the sound of an area or a voice describing a memory can carry meaning that a photo misses. Video adds movement, but increases upload size and demands attention. The short limits and one-attachment choice are provisional design decisions to keep creation manageable on a phone. Collapsing file import keeps the two recording actions visible without expanding the normal form unnecessarily.
+
+The important remaining evaluation is physical phone testing: permission prompts, rear camera, microphone quality, changing foreground/background state, capture limits, actual network upload time, cross-device codec playback and outdoor approach/reveal. A real spoken memory also needs a readable transcript in its story. No real recordings, field outcomes, independent participants or user reflections have been invented. Completed Task 2 content is preserved.
+
+
+**Published:** [Application PR #5](https://github.com/joshpilcher/urban-echo/pull/5) was merged as `742623233cc4aa857c53caa4c22679471fff33c1`. The [GitHub Pages deployment](https://github.com/joshpilcher/urban-echo/actions/runs/39551783053) completed successfully. Screenshots are local browser evidence, with synthetic input and simulated GPS labelled; they are not physical-phone captures.

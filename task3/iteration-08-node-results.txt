@@ -1,0 +1,36 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> urban-echo@0.4.0 test
+> node --test tests/*.test.cjs
+
+✔ missing public config and secret keys disable sharing (4.333042ms)
+✔ public read normalises server fields without creating an anonymous account (0.97883ms)
+✔ public photo creation authenticates only on contribution and uses an owner-scoped path (0.854322ms)
+✔ upload failure does not insert the story (1.581651ms)
+✔ uncertain insert reconciles committed row and retains its photo (0.996477ms)
+✔ definite failed insert cleans photo while unknown outcome preserves it for retry (1.618988ms)
+✔ adapter rejects deleting another creator’s contribution (1.519067ms)
+✔ photo deletion failure leaves the Echo row untouched (0.942785ms)
+✔ recording creation uses a separate owner-scoped media path and MIME (1.140245ms)
+✔ recording type mismatch is rejected before storage or row insertion (1.99708ms)
+✔ distance is in metres and handles identical and antipodal coordinates (0.949877ms)
+✔ discovery unlocks nearby content and relocks outside 100 metres (0.399264ms)
+✔ accuracy boundary and poor fixes do not reveal uncertain content (0.186772ms)
+✔ old, future, invalid and missing fixes cannot reveal or save memories (0.262597ms)
+✔ stored v0.1 records remain valid; malformed records are rejected (0.397561ms)
+✔ media formats select bounded video/audio types and reject unsupported input (0.229547ms)
+✔ recorded Echo metadata preserves old records and rejects ambiguous attachments (0.70795ms)
+✔ stop produces media and releases every device track (3.560354ms)
+✔ cancel pending permission releases a late stream and never records (0.98585ms)
+✔ permission denial and missing support provide file fallback (1.523724ms)
+✔ video and audio automatically stop at their respective time limits (1.490795ms)
+✔ oversized and interrupted recordings are discarded with devices released (4.545814ms)
+✔ cancel active recording discards chunks and does not replace attachment (0.893802ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 112.326974

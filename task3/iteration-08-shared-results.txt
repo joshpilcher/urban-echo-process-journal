@@ -1,0 +1,16 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> urban-echo@0.4.0 test:shared-media
+> node tests/media-browser.cjs --shared
+
+Chromium 133.0.6943.0 · synthetic devices/GPS · real Supabase
+PASS audio records, previews and saves at the current GPS location
+PASS audio persists, plays and relocks without resetting playback on GPS updates
+PASS audio is discoverable/playable in a second session with owner protections
+PASS audio creator deletes its record and media blob
+PASS video records, previews and saves at the current GPS location
+PASS video persists, plays and relocks without resetting playback on GPS updates
+PASS video is discoverable/playable in a second session with owner protections
+PASS video creator deletes its record and media blob
+PASS no uncaught application errors
+RESULT: 9 real shared-media browser checks passed. Synthetic devices and GPS; physical phone Safari/Chrome still require testing.

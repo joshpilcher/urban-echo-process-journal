@@ -1,0 +1,19 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> urban-echo@0.4.0 test:media
+> node tests/media-browser.cjs
+
+Chromium 133.0.6943.0 · synthetic devices/GPS · device-only
+PASS camera/microphone permission denial preserves text and offers file fallback
+PASS unsupported recording retains file selection fallback
+PASS closing active camera recording stops tracks without creating an attachment
+PASS unsupported and oversized files retain draft and show validation
+PASS file fallback validates duration, previews valid WAV and supports removal on small screens
+PASS audio records, previews and saves at the current GPS location
+PASS audio persists, plays and relocks without resetting playback on GPS updates
+PASS audio creator deletes its record and media blob
+PASS video records, previews and saves at the current GPS location
+PASS video persists, plays and relocks without resetting playback on GPS updates
+PASS video creator deletes its record and media blob
+PASS no uncaught application errors
+RESULT: 12 local media browser checks passed. Synthetic devices and GPS; physical phone Safari/Chrome still require testing.
