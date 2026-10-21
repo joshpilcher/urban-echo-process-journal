@@ -579,3 +579,20 @@ Joshua’s iPhone screenshot showed an Echo title compressed into a tall, one-ch
 The browser regression case now checks literal title rendering in the detail, no Echo tooltip after returning to the map, and no native marker title attribute. These are browser checks rather than a physical iPhone retest. No GPS, storage or interaction policy changes were needed.
 
 **Verification:** all 21 browser regression checks passed, including the revised no-floating-title case. [Browser results](iteration-13-regression-results.txt). [App commit](https://github.com/joshpilcher/urban-echo/commit/3e6c5fdeae4d6888e3958d6b0fe135d32bfa793a).
+
+
+## 21 October 2026 — Iteration 14: consistent audio controls when creating
+
+Joshua requested the same audio UI in Create Echo as in the viewing screen. Draft audio attachments now reuse the existing EchoAudio component: a large teal play/pause button, decoded waveform, seek control and elapsed/total timer. The lavender card and audio heading also match the detail design, while each draft keeps its individual Remove action. Both microphone recordings and uploaded audio pass through the same preview renderer.
+
+Starting one draft recording’s playback pauses any other audio/video preview. Rebuilding or removing a preview disposes the waveform component and aborts pending fetches; page exit also disposes draft widgets. Existing close/foreground handling pauses playback. Recording permissions, file limits, storage and GPS rules are unchanged.
+
+**All 18 local media browser checks passed.** The upload case now verifies actual waveform decoding, 48 waveform bars, custom play/pause, keyboard seeking, hidden native audio controls and a minimum 44 px button at 320 px width. Existing microphone capture, mixed attachments, failed-save recovery, removal, reload, playback and proximity relocking also passed. These use synthetic devices and GPS rather than physical phone testing. Shared-service checks were not repeated because upload/storage code did not change.
+
+[Media test results](iteration-14-media-results.txt) · [Application commit](https://github.com/joshpilcher/urban-echo/commit/8d482ffdee68715a4ebd8c634982cd84d051f71d)
+
+![Matching Create Echo audio preview](screenshots/iteration-14-create-audio.png)
+
+*Actual 320 × 568 automated browser capture with a synthetic one-second WAV and simulated GPS. The flat waveform represents the silent fixture; the visible focus ring shows keyboard seeking.*
+
+**Reflection:** reusing one playback component keeps the create and reveal flows consistent and avoids maintaining two different sets of audio controls. Removing the native player does require preserving accessible labels, keyboard seeking, playback feedback and a decoding fallback; the existing component supplies those behaviours. Physical phone touch, codecs and screen-reader evaluation remain outstanding. Completed Task 2 content is preserved.
