@@ -657,3 +657,22 @@ I wanted the journal to sound more like a record of my design decisions and less
 The main page frames screenshots below the large test banners to keep the focus on the interface. Captions still identify simulated GPS, test media and pending phone checks. Original evidence files are unchanged and open from the images. Completed Task 2 content is preserved.
 
 The journal presentation was checked at 1280 px and 390 px widths. All 14 screenshot frames retained their captions, with no horizontal overflow or script errors. Task 2 content and the page footer remained unchanged.
+
+
+## 22 October 2026 — Fixing existing video imports
+
+I found that choosing an existing video was not working as expected. The recording flow had been tested, but the file-import path needed its own successful-video checks. Without the particular phone clip or its error message, the exact cause of that attempt is still uncertain.
+
+The importer now handles supported files when the picker supplies an empty/generic type or a common platform alias. It normalises the type before preview and storage, then uses the browser to read the actual file metadata. The metadata player is attached, muted and inline, and waits for a finite duration instead of assuming it is ready at the first metadata event. Size and duration validation still apply.
+
+I also wanted a failed selection to be easier to understand. The file limits now appear beside the chooser, messages report the size or duration when relevant, and a failed selection or successful preview is brought into view. Existing attachments and the written draft are retained. Video is still limited to 30 seconds and 20 MiB; there is no automatic trimming or compression.
+
+**34 Node, 19 local media and 15 real shared-media checks passed.** New generated H.264 MP4 and QuickTime MOV fixtures exercise selecting, previewing, playing and removing imported files with normal, missing and generic type information. Additional checks cover delayed duration, files beyond the duration limit, malformed media and cleanup. An imported MP4 was also shared through the form and played in a second browser session, then removed. These checks do not confirm the outcome for the original phone clip.
+
+[Node results](iteration-17-node-results.txt) · [Local media results](iteration-17-media-results.txt) · [Real shared-media results](iteration-17-shared-results.txt) · [App PR #10](https://github.com/joshpilcher/urban-echo/pull/10)
+
+![Preview after selecting an existing video file](screenshots/iteration-17-file-import.png)
+
+*390 × 844 browser capture of a generated colour-pattern MP4 chosen through the existing-file control. GPS and media are test fixtures; no phone footage or field result is implied.*
+
+This was a useful reminder to test importing and recording separately, even though both end up as a video attachment. The next check is to repeat the original selection on the phone and record the exact feedback if it still fails.
