@@ -596,3 +596,24 @@ Starting one draft recording’s playback pauses any other audio/video preview. 
 *Actual 320 × 568 automated browser capture with a synthetic one-second WAV and simulated GPS. The flat waveform represents the silent fixture; the visible focus ring shows keyboard seeking.*
 
 **Reflection:** reusing one playback component keeps the create and reveal flows consistent and avoids maintaining two different sets of audio controls. Removing the native player does require preserving accessible labels, keyboard seeking, playback feedback and a decoding fallback; the existing component supplies those behaviours. Physical phone touch, codecs and screen-reader evaluation remain outstanding. Completed Task 2 content is preserved.
+
+
+## 22 October 2026 — Iteration 15: video previews before playback
+
+Joshua requested visible video previews in Create Echo and the Echo viewing interface. Both now extract a real still from each recorded/uploaded video, near the beginning, and use it as the native player’s poster. This avoids a blank player while keeping the visible clip paused at time zero. The story continues to lead the detail view, with video below the text. Native controls retain play, seeking, volume and fullscreen.
+
+A separate muted video element decodes the still without autoplay. A canvas scales the extracted frame to at most 640 pixels on its longest edge and creates an in-memory JPEG. Posters are generated locally rather than uploaded or stored in the database. Disposing an attachment cleans up the decoder, timeout and generated object URL. Relocking removes the video and preview together. The decoder has a 15-second timeout; when browser decoding or CORS prevents a still, a clear Play placeholder keeps native playback available. Preview generation can require additional media loading, which needs evaluation on slower mobile connections.
+
+**18 local media and 14 real shared-media browser checks passed.** New assertions verify a generated poster in the creation form and after reload/reveal, while the actual video remains paused at time zero. The second-session mixed-gallery case also verifies a real poster generated from public Storage before playback. Existing recording, draft validation, upload failure recovery, persistence, playback, GPS refresh/relocking and creator cleanup passed. These tests use synthetic Chromium camera/microphone input and simulated GPS. Physical iOS/Android preview behaviour remains unverified.
+
+[Local media results](iteration-15-media-results.txt) · [Real shared-media results](iteration-15-shared-results.txt) · [App commit](https://github.com/joshpilcher/urban-echo/commit/d05a57bc5c819c3fb60529e8bd44d3ee2b490569)
+
+![Create Echo video preview](screenshots/iteration-15-create-video.png)
+
+*Automated 390 × 844 browser capture. The green frame is Chromium’s synthetic camera fixture, not real footage. The preview is visible before playback.*
+
+![Echo detail video preview](screenshots/iteration-15-view-video.png)
+
+*The story remains first, with a real extracted synthetic video frame and native controls below. Synthetic media and simulated GPS are labelled.*
+
+**Reflection:** a still gives visitors an immediate clue about an attachment before committing to playback and makes the creation preview useful for checking a selected clip. Extracting it from the actual video avoids fabricated imagery. The extra decode and mobile browser differences are a tradeoff; future physical-phone evaluation should include portrait clips, slow connections and codecs. No backend schema or media-upload changes were needed. Completed Task 2 content remains preserved.
