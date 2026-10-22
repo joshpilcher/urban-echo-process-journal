@@ -1,4 +1,8 @@
-# Task 3 — Development Log
+# Task 3 — Development Notes
+
+I used AI assistance to help implement Urban Echo, debug problems and run automated checks. My design direction came from the Task 2 concept and mock-up, the references I supplied, and the changes I asked for while trying the app.
+
+The main journal page gives a shorter account of those choices. These detailed notes keep the implementation history and test outputs available. They describe each version at the time it was developed, so early limitations may have been addressed in later entries. Browser screenshots use simulated location and test media unless their captions say otherwise; they are not evidence of an outdoor trial. The original screenshot files are preserved, while the main page uses tighter framing and explanatory captions.
 
 ## 19 October 2026 — Moving from concept to working prototype
 
@@ -118,7 +122,7 @@ This remains a single-browser prototype. Location gating is client-side and the 
 
 ## 19 October 2026 — Separating the application and assessment journal
 
-At Joshua’s request, the application moved to its own public repository, [joshpilcher/urban-echo](https://github.com/joshpilcher/urban-echo), matching the source repository’s visibility. The application HTML, CSS, JavaScript, Leaflet distribution, tests and package configuration now live at that repository’s root. This journal retains the completed Task 2 sections, Task 3 development notes, original source history and captured evidence.
+At my request, the application moved to its own public repository, [joshpilcher/urban-echo](https://github.com/joshpilcher/urban-echo), matching the source repository’s visibility. The application HTML, CSS, JavaScript, Leaflet distribution, tests and package configuration now live at that repository’s root. This journal retains the completed Task 2 sections, Task 3 development notes, original source history and captured evidence.
 
 The standalone application is based on the tested snapshot `fd3aacf307e0452104cd9d11b2b580f1ab7ef25e`. Its migration note links back to that source history. The new repository begins with an import commit; it does not claim to reproduce the original commit graph. Relative test paths, test-server URL and journal link were adjusted for the root layout. Generated app-test screenshots are ignored in `test-results/screenshots/` so repeated test runs do not replace assessment evidence automatically.
 
@@ -137,7 +141,7 @@ The journal cleanup keeps a small `/app/` landing page pointing to the new repos
 
 ## 19 October 2026 — Merge and HTTPS deployment
 
-Joshua authorised merging the journal PR and publishing the standalone app. [PR #1](https://github.com/joshpilcher/urban-echo-process-journal/pull/1) was merged as `0e983854e9290c18e59d9b0a89ca2916f2090016`. The completed Task 2 sections were retained.
+I authorised merging the journal PR and publishing the standalone app. [PR #1](https://github.com/joshpilcher/urban-echo-process-journal/pull/1) was merged as `0e983854e9290c18e59d9b0a89ca2916f2090016`. The completed Task 2 sections were retained.
 
 The application is now live at **[https://joshpilcher.github.io/urban-echo/](https://joshpilcher.github.io/urban-echo/)**. GitHub Pages is configured to deploy the application repository’s `main` branch at `/ (root)`, with HTTPS enforced on the default GitHub Pages domain. The initial [Pages build and deployment](https://github.com/joshpilcher/urban-echo/actions/runs/39202582914) published application commit `412b9a8bab0fa40dabd2c44953d16b89e7b4ac2e`.
 
@@ -154,14 +158,14 @@ The live app and journal now link to one another, and the former journal `/app/`
 
 ## 19 October 2026 — First response to the live prototype
 
-Joshua reported that the deployed app “works” but needs further polishing and more features. This is initial user feedback, not a measured outdoor GPS/proximity test; no device, accuracy readings, walk distances or screenshots were supplied with that feedback. A review of the current implementation identified the long stacked mobile layout, lack of a dedicated Echo detail view, and missing edit/delete actions as candidates for the next iteration. Feature and visual priorities are being clarified before implementation; shared storage and photo uploads remain planned rather than completed.
+I found that the deployed app “works” but needs further polishing and more features. This is initial user feedback, not a measured outdoor GPS/proximity test; no device, accuracy readings, walk distances or screenshots were supplied with that feedback. A review of the current implementation identified the long stacked mobile layout, lack of a dedicated Echo detail view, and missing edit/delete actions as candidates for the next iteration. Feature and visual priorities are being clarified before implementation; shared storage and photo uploads remain planned rather than completed.
 
 
 ---
 
 ## 19 October 2026 — Iteration 03: photo memories and a closer visual match
 
-Joshua selected **attach photos to memories**, **discover other people’s Echoes**, and **match the Task 2 mock-up more closely** as the next priorities. Development therefore moved from the initial stacked layout toward the Task 2 white/lavender surface, serif masthead, teal controls, map pins, rounded discovery sheet and photo-led detail view. The original mock-up remains unchanged in the completed Task 2 section.
+I selected **attach photos to memories**, **discover other people’s Echoes**, and **match the Task 2 mock-up more closely** as the next priorities. Development therefore moved from the initial stacked layout toward the Task 2 white/lavender surface, serif masthead, teal controls, map pins, rounded discovery sheet and photo-led detail view. The original mock-up remains unchanged in the completed Task 2 section.
 
 ### Implemented in this increment
 
@@ -175,7 +179,7 @@ Joshua selected **attach photos to memories**, **discover other people’s Echoe
 
 The app now contains a Supabase adapter, the official vendored JavaScript SDK, a proposed database/storage migration and explicit Public consent text. The migration defines public reading and creator-only writes/deletion, with photo paths scoped to an authenticated anonymous contributor. Public sharing would reveal the title, story, exact pin and photo. The 100 m rule is an interface interaction, not protection for confidential content.
 
-**Connection status:** Joshua installed the Supabase plugin. Its project tools were not exposed to the development session, so no project was selected, migration applied, live upload made or real multi-user discovery test completed. Project configuration remains empty and Public is visibly disabled. This is a tooling blocker, not evidence that the cloud feature works. The next step is to connect a dedicated project, enable anonymous sign-ins and verify RLS with independent users before enabling Public.
+**Connection status:** I installed the Supabase plugin. Its project tools were not exposed to the development session, so no project was selected, migration applied, live upload made or real multi-user discovery test completed. Project configuration remains empty and Public is visibly disabled. This is a tooling blocker, not evidence that the cloud feature works. The next step is to connect a dedicated project, enable anonymous sign-ins and verify RLS with independent users before enabling Public.
 
 Anonymous ownership is a limited prototype decision: it avoids an account form, but clearing site data loses control of previously shared contributions. The first query is capped at the newest 200 public Echoes. Account recovery, moderation, geographic pagination and robust orphan-media cleanup remain future work.
 
@@ -210,20 +214,20 @@ The next technical milestone is a verified two-session public photo contribution
 
 ## 19 October 2026 — Supabase project and database provisioned
 
-The Supabase tools became available after the previous entry. Joshua chose the student organisation for a separate Urban Echo project. The connector created `jamgivrngcderqmemjmb` in Sydney (`ap-southeast-2`); the existing inactive BikePark project was not modified.
+The Supabase tools became available after the previous entry. I chose the student organisation for a separate Urban Echo project. The connector created `jamgivrngcderqmemjmb` in Sydney (`ap-southeast-2`); the existing inactive BikePark project was not modified.
 
 Applied `urban_echo_public_memories` and `urban_echo_least_privilege_grants`. The second migration followed an inspection that found inherited INSERT, DELETE, TRUNCATE and other broad grants. It revokes all client-role table privileges, then grants only SELECT to public readers and SELECT/INSERT/DELETE to authenticated contributors. The row policies still restrict creation/deletion to the contributor ID. Verification confirmed RLS enabled, all six intended table/storage policies and the public JPEG bucket with its 1,572,864-byte limit. A real request to the table REST endpoint using the publishable key returned HTTP 200 and `[]`.
 
 Supabase security advisors returned no findings after the change. The performance advisor reported two unused indexes on the new, empty table; they were retained for date ordering and ownership lookups. [Advisor explanation](https://supabase.com/docs/guides/database/database-linter?lint=0005_unused_index). An advisor result is not proof that the full multi-user workflow works.
 
-The public Auth settings endpoint confirms `anonymous_users: false`. The connector has no Auth-settings operation, so the approved browser fallback was used. Dashboard sign-in reached a CAPTCHA requiring Joshua’s manual completion. No challenge was bypassed. Anonymous sign-ins have not been enabled, no test photo has been uploaded, and no two-user/RLS write test has been completed. The client configuration remains empty and Public remains disabled while this is unresolved. The next action is to finish dashboard sign-in, enable the anonymous contributor flow, and run the actual sharing/ownership tests before deployment.
+The public Auth settings endpoint confirms `anonymous_users: false`. The connector has no Auth-settings operation, so the approved browser fallback was used. Dashboard sign-in reached a CAPTCHA requiring my manual completion. No challenge was bypassed. Anonymous sign-ins have not been enabled, no test photo has been uploaded, and no two-user/RLS write test has been completed. The client configuration remains empty and Public remains disabled while this is unresolved. The next action is to finish dashboard sign-in, enable the anonymous contributor flow, and run the actual sharing/ownership tests before deployment.
 
 Current Supabase changelog and documentation were reviewed, including explicit Data API grants and public-bucket access. This is backend provisioning evidence; the existing browser screenshots still represent simulated location and synthetic image tests.
 
 
 ## 19 October 2026 — Iteration 04: real shared photo discovery
 
-Joshua completed the Supabase dashboard sign-in. Anonymous sign-ins were enabled for the dedicated Urban Echo project, and the browser client was connected using only the project URL and publishable key. Contributors are authenticated as anonymous users; reading public Echoes does not create an account. The default create option is still Only this device. Choosing Public explicitly shares the story, photo and exact pin; old device memories are not uploaded automatically.
+I completed the Supabase dashboard sign-in. Anonymous sign-ins were enabled for the dedicated Urban Echo project, and the browser client was connected using only the project URL and publishable key. Contributors are authenticated as anonymous users; reading public Echoes does not create an account. The default create option is still Only this device. Choosing Public explicitly shares the story, photo and exact pin; old device memories are not uploaded automatically.
 
 ### Verified against the real backend
 
@@ -255,7 +259,7 @@ Default anonymous sign-up rate limits remain in place; no CAPTCHA, moderation in
 
 Real sharing changes Urban Echo from a personal location journal toward the social concept in Task 2: a place can carry a memory left by someone else. Testing with independent sessions was necessary because local persistence alone could make the interface look shared without actually proving it. The direct ownership tests likewise showed that deletion restrictions are enforced by the backend, not just the interface.
 
-The next evaluation should involve an actual phone photo, a public contribution and another device approaching it outdoors, recording GPS accuracy and lock/unlock behaviour. iOS/Android image orientation, camera selection, keyboard behaviour and storage pressure still need observation. The provisional 100 m discovery radius and 30 s freshness window remain unvalidated outdoors. The final 1–3 minute standalone showreel and Joshua’s personal evaluation remain outstanding; no field results or participant feedback have been invented.
+The next evaluation should involve an actual phone photo, a public contribution and another device approaching it outdoors, recording GPS accuracy and lock/unlock behaviour. iOS/Android image orientation, camera selection, keyboard behaviour and storage pressure still need observation. The provisional 100 m discovery radius and 30 s freshness window remain unvalidated outdoors. The final 1–3 minute standalone showreel and my personal evaluation remain outstanding; no field results or participant feedback have been invented.
 
 
 ### Publishing the connected prototype
@@ -271,7 +275,7 @@ The completed Task 2 HTML was checked byte-for-byte against the original again a
 
 ## 21 October 2026 — Iteration 05: cleaning up the phone interface
 
-Joshua reported that the UI was not working well on mobile and asked for a cleanup. Reviewing the implemented layout showed a concrete problem: the map sheet compressed filters, status copy, privacy text, memory cards and creation into a limited-height overlay. Supporting text fell to 7–10 px, and the usable card area was too small. The original drag-handle-style button did not clearly communicate that it opened a larger list. This is user feedback and implementation review, not a new participant study.
+I found that the UI was not working well on mobile and asked for a cleanup. Reviewing the implemented layout showed a concrete problem: the map sheet compressed filters, status copy, privacy text, memory cards and creation into a limited-height overlay. Supporting text fell to 7–10 px, and the usable card area was too small. The original drag-handle-style button did not clearly communicate that it opened a larger list. This is user feedback and implementation review, not a new participant study.
 
 ### Design changes implemented
 
@@ -310,7 +314,7 @@ New checks cover 320 × 568, 390 × 844, 430 × 932 and 844 × 390 layouts: docu
 
 The main improvement is assigning different jobs to the two views: Map keeps place visible, while Nearby gives stories enough space. Showing one preview is a deliberate tradeoff; the count and View list button communicate that more Echoes exist. In a very short viewport, the preview omits the story excerpt and keeps the title/action; the full list remains available.
 
-This is a tested browser layout improvement, not proof that Joshua has found the phone experience satisfactory. Actual iOS Safari/Android Chrome browser chrome, the keyboard opening, safe-area insets, landscape use and screen-reader behaviour still need hands-on checks. The reduced-height browser test is a useful approximation, not a physical keyboard test. Outdoor GPS evaluation, participant observations, the final 1–3 minute showreel and Joshua’s personal final reflection remain outstanding. The completed Task 2 sections are preserved.
+This is a tested browser layout improvement, not proof that I have found the phone experience satisfactory. Actual iOS Safari/Android Chrome browser chrome, the keyboard opening, safe-area insets, landscape use and screen-reader behaviour still need hands-on checks. The reduced-height browser test is a useful approximation, not a physical keyboard test. Outdoor GPS evaluation, participant observations, the final 1–3 minute showreel and my personal final reflection remain outstanding. The completed Task 2 sections are preserved.
 
 
 **Deployment:** [Application PR #2](https://github.com/joshpilcher/urban-echo/pull/2) was merged as `461c3f136affe39ed789135e64f86009682a8b65`. The [Pages run](https://github.com/joshpilcher/urban-echo/actions/runs/39538677491) completed successfully and the published version 0.3.1 source was checked for the updated list toggle, detail toolbar and mobile stylesheet rules. The screenshots above are actual local browser renders of the tested implementation, rather than captures of a physical phone. The completed Task 2 HTML remains byte-for-byte unchanged.
@@ -318,7 +322,7 @@ This is a tested browser layout improvement, not proof that Joshua has found the
 
 ## 21 October 2026 — Iteration 06: more of the screen belongs to the map
 
-Joshua’s next feedback was that more of the map should cover the screen, the starting view should be closer, and the Nearby Echoes/recenter window should move out of the way. Iteration 05 improved reading, but its preview still occupied a substantial part of the mobile map. This update follows that more specific feedback.
+my next feedback was that more of the map should cover the screen, the starting view should be closer, and the Nearby Echoes/recenter window should move out of the way. Iteration 05 improved reading, but its preview still occupied a substantial part of the mobile map. This update follows that more specific feedback.
 
 ### Changes
 
@@ -350,7 +354,7 @@ The initial regional zoom changes from 12 to 13. The first GPS-centred view and 
 
 This makes the original place-responsive idea more visible: the map is the main surface again, and reading/browsing is reached intentionally through a pin or Nearby. Hiding the preview means people must notice the pins or navigation; that tradeoff should be evaluated on a phone. The new closer view is a design choice rather than a field-validated optimum. It may need adjustment after actual walks or use in denser areas.
 
-Physical phone browser chrome, touch behaviour, GPS accuracy and outdoor approach/reveal still require hands-on evaluation. No new participant feedback beyond Joshua’s request, real photographs or outdoor results have been invented. This interface increment makes no backend policy or storage changes, and does not repeat the earlier real shared-service tests. Completed Task 2 content remains preserved.
+Physical phone browser chrome, touch behaviour, GPS accuracy and outdoor approach/reveal still require hands-on evaluation. No new participant feedback beyond my request, real photographs or outdoor results have been invented. This interface increment makes no backend policy or storage changes, and does not repeat the earlier real shared-service tests. Completed Task 2 content remains preserved.
 
 
 **Published:** [Application PR #3](https://github.com/joshpilcher/urban-echo/pull/3) was merged as `fc7f566b99e62529621ffad6335228c467b6b79e`. The [Pages deployment](https://github.com/joshpilcher/urban-echo/actions/runs/39541162068) succeeded. A fresh HTTPS request confirmed version 0.3.2 and the published initial/GPS zoom settings. The images above are local browser evidence of the tested mobile implementation, with simulated GPS explicitly labelled; they are not physical phone captures.
@@ -358,7 +362,7 @@ Physical phone browser chrome, touch behaviour, GPS accuracy and outdoor approac
 
 ## 21 October 2026 — Iteration 07: replacing the top filters with a discovery prompt
 
-Joshua asked to remove the top filters because they felt unnecessary, while adding something purposeful to Map so it would not feel empty. The All/Photos/Stories toolbar is removed, along with its unused media-filter state. Title search and the All Echoes/Within reach choices inside Nearby remain available.
+I asked to remove the top filters because they felt unnecessary, while adding something purposeful to Map so it would not feel empty. The All/Photos/Stories toolbar is removed, along with its unused media-filter state. Title search and the All Echoes/Within reach choices inside Nearby remain available.
 
 Map now has one small discovery card. Without a fresh location it invites the visitor to find a story nearby. With a usable fix it shows the actual number of loaded Echoes within reach; when none are available, it says so and suggests leaving a memory or exploring Nearby. It also has copy for uncertain GPS and shared-read failure. The card does not insert example memories or invent nearby activity to fill the screen.
 
@@ -376,7 +380,7 @@ Tapping the card opens Nearby with Within reach selected when there is an unlock
 
 [Browser output](iteration-07-browser-results.txt) · [Node output](iteration-07-node-results.txt)
 
-**Reflection:** this gives Map a clear next action and a sense of discovery without returning to a large memory sheet. The content is responsive to location rather than being a static marketing card. The tradeoff is that photo/story browsing is no longer a top-level filter; if people later need it, that choice could be placed inside Nearby. Physical phone touch, screen-reader use and outdoor GPS behaviour still need evaluation. No new field results, real photographs or participant feedback beyond Joshua’s request have been invented. Backend policies and storage behaviour were not changed, and the earlier real shared-service tests were not rerun for this interface increment. Completed Task 2 content remains preserved.
+**Reflection:** this gives Map a clear next action and a sense of discovery without returning to a large memory sheet. The content is responsive to location rather than being a static marketing card. The tradeoff is that photo/story browsing is no longer a top-level filter; if people later need it, that choice could be placed inside Nearby. Physical phone touch, screen-reader use and outdoor GPS behaviour still need evaluation. No new field results, real photographs or participant feedback beyond my request have been invented. Backend policies and storage behaviour were not changed, and the earlier real shared-service tests were not rerun for this interface increment. Completed Task 2 content remains preserved.
 
 
 **Published:** [Application PR #4](https://github.com/joshpilcher/urban-echo/pull/4) was merged as `20181bdef6b439e7eca9599a26cb1cc75d9af00b`. The [Pages deployment](https://github.com/joshpilcher/urban-echo/actions/runs/39542484170) completed successfully. Screenshots above are local browser evidence with simulated GPS, not physical phone captures.
@@ -384,7 +388,7 @@ Tapping the card opens Nearby with Within reach selected when there is an unlock
 
 ## 21 October 2026 — Iteration 08: recording sound and moving images
 
-Joshua asked to add the ability to record videos and audio. This extends the core idea: a location can hold a voice, a short moving scene or an ambient sound, as well as a written story or photograph. This is a requested feature, not a new participant finding.
+I asked to add the ability to record videos and audio. This extends the core idea: a location can hold a voice, a short moving scene or an ambient sound, as well as a written story or photograph. This is a requested feature, not a new participant finding.
 
 ### Implementation and decisions
 
@@ -435,7 +439,7 @@ The important remaining evaluation is physical phone testing: permission prompts
 
 ## 21 October 2026 — Iteration 09: combining media in one Echo
 
-Joshua clarified that he wants all media types in the same Echo. This revises the previous iteration’s one-attachment choice. The feature now treats an Echo as one location-tagged story with an ordered collection of photos, videos and audio, rather than asking the creator to choose a single medium.
+I clarified that he wants all media types in the same Echo. This revises the previous iteration’s one-attachment choice. The feature now treats an Echo as one location-tagged story with an ordered collection of photos, videos and audio, rather than asking the creator to choose a single medium.
 
 ### Design and implementation
 
@@ -475,7 +479,7 @@ The database enforces collection count and metadata paths, while bucket MIME/per
 
 ### Reflection
 
-The earlier single-attachment design simplified capture, but Joshua’s feedback exposed an unnecessary creative restriction: a photo, a voice and movement can describe complementary parts of the same place. Keeping them under one story and pin makes that relationship explicit. The cost is a longer creation/detail flow and more upload work, so individual removal, a visible count and bounded storage are now more useful than automatic replacement.
+The earlier single-attachment design simplified capture, but my feedback exposed an unnecessary creative restriction: a photo, a voice and movement can describe complementary parts of the same place. Keeping them under one story and pin makes that relationship explicit. The cost is a longer creation/detail flow and more upload work, so individual removal, a visible count and bounded storage are now more useful than automatic replacement.
 
 The limits remain design choices rather than field-validated thresholds. Next evaluation should use real iOS/Android devices to test adding mixed files, permissions, keyboard/scrolling, upload delays, codec playback, leaving the foreground and outdoor approach/reveal. No real photographs/recordings, new participants or physical-device outcomes have been invented. Completed Task 2 content remains unchanged.
 
@@ -485,7 +489,7 @@ The limits remain design choices rather than field-validated thresholds. Next ev
 
 ## 21 October 2026 — Iteration 10: returning to the original Echo detail composition
 
-Joshua requested a multi-attachment viewing interface closer to the original Task 2 mock-up. Reviewing its centre screen showed a clear hierarchy: a large lead image, rounded story panel, compact audio and a small photo gallery. Iteration 09 had established mixed-media functionality, but stacked every attachment before the text, pushing the meaning of the Echo too far down the page.
+I wanted a multi-attachment viewing interface closer to the original Task 2 mock-up. Reviewing its centre screen showed a clear hierarchy: a large lead image, rounded story panel, compact audio and a small photo gallery. Iteration 09 had established mixed-media functionality, but stacked every attachment before the text, pushing the meaning of the Echo too far down the page.
 
 The revised view uses one main photo or video above the story. A photo is selected first when available. Beneath the story/date, compact audio cards retain native playback, seeking and volume controls. A grid of labelled thumbnails selects photos/videos in the main viewing area, with a selected border and `aria-pressed` state. Video thumbnails use an explicit video icon. The main photo uses contain sizing to keep the complete image visible; smaller thumbnail crops make the collection easier to scan.
 
@@ -519,7 +523,7 @@ The prior 14 real shared-media checks were not repeated because no backend behav
 
 ## 21 October 2026 — Iteration 11: story first, full media and waveform audio
 
-Joshua refined the viewing hierarchy: lead with the title and description, then show the other media in full. His attached audio reference showed a large teal play button, blue waveform and elapsed/total counter. This feedback revises iteration 10: the hero image and thumbnail selector are removed. The title, story and date now introduce the Echo, followed by audio cards and all photos/videos below. Complete images preserve their proportions; videos retain native playback controls.
+I refined the viewing hierarchy: lead with the title and description, then show the other media in full. His attached audio reference showed a large teal play button, blue waveform and elapsed/total counter. This feedback revises iteration 10: the hero image and thumbnail selector are removed. The title, story and date now introduce the Echo, followed by audio cards and all photos/videos below. Complete images preserve their proportions; videos retain native playback controls.
 
 The custom audio row follows the supplied reference while retaining real playback. Its waveform is calculated from decoded audio samples across every channel, using 48 RMS amplitude bins. It is not a decorative random pattern. A transparent labelled range input supports touch and keyboard seeking over the waveform; played bars change colour, the large button toggles play/pause, and the counter follows actual media time. OfflineAudioContext decodes existing files without asking for microphone access. Waveform fetching is bounded to the existing audio size/duration limits. Closing or relocking disposes the widget and aborts pending fetches; a late decode cannot update a disposed card.
 
@@ -547,7 +551,7 @@ Playback remains stable across valid GPS refreshes. Playing audio pauses other r
 
 ## 21 October 2026 — Iteration 12: shared Echoes become a conversation
 
-Joshua asked for likes and replies to other Echoes, plus an Activity destination in the bottom navigation. The Journal link is now replaced by Activity. The new social layer keeps the location-responsive model: a visitor must have a fresh GPS fix and be within the Echo’s reveal radius before the controls appear. Device-only Echoes remain private and cannot receive public interaction.
+I asked for likes and replies to other Echoes, plus an Activity destination in the bottom navigation. The Journal link is now replaced by Activity. The new social layer keeps the location-responsive model: a visitor must have a fresh GPS fix and be within the Echo’s reveal radius before the controls appear. Device-only Echoes remain private and cannot receive public interaction.
 
 A public Echo detail now has a Like button with a count and pressed state, followed by a reply thread and a short form. Likes are idempotent per anonymous browser identity and can be removed. Replies are limited to 500 characters, rendered as text, and can be deleted by their author. The control remains usable with keyboard focus and 44 px touch targets. A failed post keeps the draft so a temporary network problem does not erase someone’s response. Closing or relocking removes the interaction controls and clears the thread from view.
 
@@ -574,7 +578,7 @@ The backend adds `urban_echo_likes` and `urban_echo_replies` with foreign keys t
 
 ## 21 October 2026 — Iteration 13: removing floating map titles
 
-Joshua’s iPhone screenshot showed an Echo title compressed into a tall, one-character-wide tooltip over the map after returning from a memory. Echo markers no longer bind a floating title tooltip or reopen it after selecting a detail. The native HTML title is also removed; the marker retains an accessible alternative label. Titles remain available in the Nearby list and the Echo detail. This keeps the map focused on location and avoids the intrusive vertical label on small screens.
+my iPhone screenshot showed an Echo title compressed into a tall, one-character-wide tooltip over the map after returning from a memory. Echo markers no longer bind a floating title tooltip or reopen it after selecting a detail. The native HTML title is also removed; the marker retains an accessible alternative label. Titles remain available in the Nearby list and the Echo detail. This keeps the map focused on location and avoids the intrusive vertical label on small screens.
 
 The browser regression case now checks literal title rendering in the detail, no Echo tooltip after returning to the map, and no native marker title attribute. These are browser checks rather than a physical iPhone retest. No GPS, storage or interaction policy changes were needed.
 
@@ -583,7 +587,7 @@ The browser regression case now checks literal title rendering in the detail, no
 
 ## 21 October 2026 — Iteration 14: consistent audio controls when creating
 
-Joshua requested the same audio UI in Create Echo as in the viewing screen. Draft audio attachments now reuse the existing EchoAudio component: a large teal play/pause button, decoded waveform, seek control and elapsed/total timer. The lavender card and audio heading also match the detail design, while each draft keeps its individual Remove action. Both microphone recordings and uploaded audio pass through the same preview renderer.
+I wanted the same audio UI in Create Echo as in the viewing screen. Draft audio attachments now reuse the existing EchoAudio component: a large teal play/pause button, decoded waveform, seek control and elapsed/total timer. The lavender card and audio heading also match the detail design, while each draft keeps its individual Remove action. Both microphone recordings and uploaded audio pass through the same preview renderer.
 
 Starting one draft recording’s playback pauses any other audio/video preview. Rebuilding or removing a preview disposes the waveform component and aborts pending fetches; page exit also disposes draft widgets. Existing close/foreground handling pauses playback. Recording permissions, file limits, storage and GPS rules are unchanged.
 
@@ -600,7 +604,7 @@ Starting one draft recording’s playback pauses any other audio/video preview. 
 
 ## 22 October 2026 — Iteration 15: video previews before playback
 
-Joshua requested visible video previews in Create Echo and the Echo viewing interface. Both now extract a real still from each recorded/uploaded video, near the beginning, and use it as the native player’s poster. This avoids a blank player while keeping the visible clip paused at time zero. The story continues to lead the detail view, with video below the text. Native controls retain play, seeking, volume and fullscreen.
+I wanted visible video previews in Create Echo and the Echo viewing interface. Both now extract a real still from each recorded/uploaded video, near the beginning, and use it as the native player’s poster. This avoids a blank player while keeping the visible clip paused at time zero. The story continues to lead the detail view, with video below the text. Native controls retain play, seeking, volume and fullscreen.
 
 A separate muted video element decodes the still without autoplay. A canvas scales the extracted frame to at most 640 pixels on its longest edge and creates an in-memory JPEG. Posters are generated locally rather than uploaded or stored in the database. Disposing an attachment cleans up the decoder, timeout and generated object URL. Relocking removes the video and preview together. The decoder has a 15-second timeout; when browser decoding or CORS prevents a still, a clear Play placeholder keeps native playback available. Preview generation can require additional media loading, which needs evaluation on slower mobile connections.
 
@@ -621,13 +625,13 @@ A separate muted video element decodes the still without autoplay. A canvas scal
 
 ## 22 October 2026 — Iteration 16: iPhone feedback and a recording ready step
 
-Joshua’s iPhone screenshot showed that the previous video-preview increment still displayed a blank native player. This is direct device feedback and contradicts treating the earlier Chromium result as cross-device proof. He also requested a separate Start action: opening the camera or microphone should give time to prepare before recording begins.
+my iPhone screenshot showed that the previous video-preview increment still displayed a blank native player. This is direct device feedback and contradicts treating the earlier Chromium result as cross-device proof. He also requested a separate Start action: opening the camera or microphone should give time to prepare before recording begins.
 
 Both capture flows now enter a **Ready** state after permission is granted. Video shows the live camera for framing, while audio confirms microphone readiness. A separate **Start recording** button starts MediaRecorder and the duration clock; time spent getting ready does not count toward the clip. Cancel or closing the form releases the tracks without attaching a recording. Tests cover cancelling both a ready camera and an active recording. Existing duration/size limits and upload behaviour continue to apply.
 
 The video thumbnail now appears in an explicit image cover above the native player, with a large teal Play button. The extracted JPEG is used by both the cover image and the native poster. This avoids depending entirely on the native poster rendering seen to fail in the iPhone screenshot. The decoder is attached to the document, muted and inline, then briefly primed with play() to obtain a frame where preload/seek alone is insufficient. It stops and releases its source after capture or timeout. A visible player is started directly from the cover’s tap gesture, preserving native playback controls. A decoding failure leaves a labelled Play fallback. Changed assets have versioned URLs to avoid reusing the previous cached code.
 
-This approach follows [WebKit’s documented muted/inline playback policies](https://webkit.org/blog/6784/new-video-policies-for-ios/), but browser settings, power-saving and codecs can still affect decoding. It is a targeted compatibility revision and **has not yet been confirmed on Joshua’s physical iPhone**.
+This approach follows [WebKit’s documented muted/inline playback policies](https://webkit.org/blog/6784/new-video-policies-for-ios/), but browser settings, power-saving and codecs can still affect decoding. It is a targeted compatibility revision and **has not yet been confirmed on my physical iPhone**.
 
 **30 Node, 21 regression, 18 local media and 14 real shared-media checks passed.** Node checks verify an inactive recorder in Ready, cancellation without a clip, separate Start and exclusion of preparation time from duration. Browser checks verify both Ready screens, a delay without recording, explicit Start, closing both ready/recording cameras, generated JPEG covers, and cover visibility even when the native poster attribute is deliberately removed. Shared-service tests retain real uploads, second-session playback, ownership protection and creator cleanup. All browser devices/GPS/content are synthetic; anonymous test Auth accounts remain.
 
@@ -644,3 +648,12 @@ This approach follows [WebKit’s documented muted/inline playback policies](htt
 **Reflection:** opening a capture tool and beginning a recording are different intentions. The Ready step makes that distinction clear and prevents unwanted footage or silence at the beginning. The iPhone screenshot also exposed the limits of the automated browser evidence: a decoded Chromium poster was insufficient assurance for Safari. The explicit image cover adds a controllable display layer, while preserving native playback after a deliberate tap. The next validation should repeat the same existing Echo on the iPhone, create a new video and audio clip through Ready/Start/Stop, and record the observed outcomes. No physical result is invented here. Completed Task 2 content remains preserved.
 
 [Application commit](https://github.com/joshpilcher/urban-echo/commit/b204606c7b374052a1419d833b5f5c3e417695bf).
+
+
+## 22 October 2026 — Making the journal easier to read
+
+I wanted the journal to sound more like a record of my design decisions and less like a technical report. The main Task 3 section now follows the changes I asked for, why they mattered and what still needs checking. The detailed test history remains here for reference, alongside a short explanation of AI assistance.
+
+The main page frames screenshots below the large test banners to keep the focus on the interface. Captions still identify simulated GPS, test media and pending phone checks. Original evidence files are unchanged and open from the images. Completed Task 2 content is preserved.
+
+The journal presentation was checked at 1280 px and 390 px widths. All 14 screenshot frames retained their captions, with no horizontal overflow or script errors. Task 2 content and the page footer remained unchanged.
