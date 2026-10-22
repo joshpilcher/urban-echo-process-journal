@@ -676,3 +676,30 @@ I also wanted a failed selection to be easier to understand. The file limits now
 *390 × 844 browser capture of a generated colour-pattern MP4 chosen through the existing-file control. GPS and media are test fixtures; no phone footage or field result is implied.*
 
 This was a useful reminder to test importing and recording separately, even though both end up as a video attachment. The next check is to repeat the original selection on the phone and record the exact feedback if it still fails.
+
+
+## 22 October 2026 — Proximity becomes visible on the map
+
+I wanted the map to do more than show where an Echo is. As someone moves closer, the pin should become more noticeable, with the full memory opening once the existing distance rule is satisfied. This makes real-world movement part of the interaction before the final reveal.
+
+The marker now grows, becomes more opaque and gains a soft halo over the last 500 metres of approach. The signal includes the reported GPS accuracy, so uncertain readings soften the visual response. Nearby uncertain pins appear amber, while an unlocked Echo has the strongest teal ring. With no fresh location, pins return to a neutral state. The 500-metre approach is an initial design choice, not a field-validated threshold.
+
+The existing reveal rule is unchanged: distance plus estimated GPS accuracy must fit inside 100 metres. A stronger marker does not reveal the story, photo or recordings early. The outer tap target stays 44 pixels even when the visible pin is smaller. Marker elements are retained between readings so the changes can transition smoothly rather than being rebuilt, and reduced-motion settings disable the transition. Screen-reader labels include the current state and distance.
+
+**36 Node and 22 browser checks passed.** New checks cover increasing proximity, visible size and opacity changes, preservation of marker elements, uncertainty, stale/missing GPS, reduced motion and tap target size. Existing GPS, photo, storage and responsive checks also passed. The screenshots below use simulated positions at about 600 m, 150 m and 50 m with ±8 m accuracy. They are browser evidence, not an outdoor walk. No shared storage or upload changes were needed.
+
+[Node results](iteration-18-node-results.txt) · [Browser results](iteration-18-browser-results.txt) · [Application PR #11](https://github.com/joshpilcher/urban-echo/pull/11)
+
+![Far from an Echo](screenshots/iteration-18-far.png)
+
+*Simulated 600 m: the marker is visible but smaller and subdued.*
+
+![Approaching an Echo](screenshots/iteration-18-approaching.png)
+
+*Simulated 150 m: the marker has grown and gained a halo, while the memory remains locked.*
+
+![An Echo within reach](screenshots/iteration-18-unlocked.png)
+
+*Simulated 50 m: the teal ring marks the unlocked state. This test uses a written fixture, not a real visitor memory.*
+
+My aim with this change is to connect walking and discovery more closely: the app responds along the way, rather than only changing at one boundary. The remaining question is whether the visual change feels gradual enough on a real phone, where GPS updates can jump. An outdoor test should check whether the 500-metre approach helps people notice a memory and whether the amber uncertainty state makes sense. No physical outcome is claimed here.
