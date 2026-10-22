@@ -617,3 +617,30 @@ A separate muted video element decodes the still without autoplay. A canvas scal
 *The story remains first, with a real extracted synthetic video frame and native controls below. Synthetic media and simulated GPS are labelled.*
 
 **Reflection:** a still gives visitors an immediate clue about an attachment before committing to playback and makes the creation preview useful for checking a selected clip. Extracting it from the actual video avoids fabricated imagery. The extra decode and mobile browser differences are a tradeoff; future physical-phone evaluation should include portrait clips, slow connections and codecs. No backend schema or media-upload changes were needed. Completed Task 2 content remains preserved.
+
+
+## 22 October 2026 — Iteration 16: iPhone feedback and a recording ready step
+
+Joshua’s iPhone screenshot showed that the previous video-preview increment still displayed a blank native player. This is direct device feedback and contradicts treating the earlier Chromium result as cross-device proof. He also requested a separate Start action: opening the camera or microphone should give time to prepare before recording begins.
+
+Both capture flows now enter a **Ready** state after permission is granted. Video shows the live camera for framing, while audio confirms microphone readiness. A separate **Start recording** button starts MediaRecorder and the duration clock; time spent getting ready does not count toward the clip. Cancel or closing the form releases the tracks without attaching a recording. Tests cover cancelling both a ready camera and an active recording. Existing duration/size limits and upload behaviour continue to apply.
+
+The video thumbnail now appears in an explicit image cover above the native player, with a large teal Play button. The extracted JPEG is used by both the cover image and the native poster. This avoids depending entirely on the native poster rendering seen to fail in the iPhone screenshot. The decoder is attached to the document, muted and inline, then briefly primed with play() to obtain a frame where preload/seek alone is insufficient. It stops and releases its source after capture or timeout. A visible player is started directly from the cover’s tap gesture, preserving native playback controls. A decoding failure leaves a labelled Play fallback. Changed assets have versioned URLs to avoid reusing the previous cached code.
+
+This approach follows [WebKit’s documented muted/inline playback policies](https://webkit.org/blog/6784/new-video-policies-for-ios/), but browser settings, power-saving and codecs can still affect decoding. It is a targeted compatibility revision and **has not yet been confirmed on Joshua’s physical iPhone**.
+
+**30 Node, 21 regression, 18 local media and 14 real shared-media checks passed.** Node checks verify an inactive recorder in Ready, cancellation without a clip, separate Start and exclusion of preparation time from duration. Browser checks verify both Ready screens, a delay without recording, explicit Start, closing both ready/recording cameras, generated JPEG covers, and cover visibility even when the native poster attribute is deliberately removed. Shared-service tests retain real uploads, second-session playback, ownership protection and creator cleanup. All browser devices/GPS/content are synthetic; anonymous test Auth accounts remain.
+
+[Node results](iteration-16-node-results.txt) · [Regression results](iteration-16-regression-results.txt) · [Local media results](iteration-16-media-results.txt) · [Real shared-media results](iteration-16-shared-results.txt)
+
+![Camera ready before recording starts](screenshots/iteration-16-video-ready.png)
+
+*Automated 390 × 844 browser capture. The camera is available for framing, but the recorder remains inactive until Start recording. Synthetic camera and simulated GPS are labelled.*
+
+![Explicit video image cover](screenshots/iteration-16-view-video.png)
+
+*The extracted synthetic video frame is displayed as an image cover with its own Play control. This browser evidence does not replace the pending iPhone retest.*
+
+**Reflection:** opening a capture tool and beginning a recording are different intentions. The Ready step makes that distinction clear and prevents unwanted footage or silence at the beginning. The iPhone screenshot also exposed the limits of the automated browser evidence: a decoded Chromium poster was insufficient assurance for Safari. The explicit image cover adds a controllable display layer, while preserving native playback after a deliberate tap. The next validation should repeat the same existing Echo on the iPhone, create a new video and audio clip through Ready/Start/Stop, and record the observed outcomes. No physical result is invented here. Completed Task 2 content remains preserved.
+
+[Application commit](https://github.com/joshpilcher/urban-echo/commit/b204606c7b374052a1419d833b5f5c3e417695bf).
