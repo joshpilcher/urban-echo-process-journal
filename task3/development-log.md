@@ -703,3 +703,15 @@ The existing reveal rule is unchanged: distance plus estimated GPS accuracy must
 *Simulated 50 m: the teal ring marks the unlocked state. This test uses a written fixture, not a real visitor memory.*
 
 My aim with this change is to connect walking and discovery more closely: the app responds along the way, rather than only changing at one boundary. The remaining question is whether the visual change feels gradual enough on a real phone, where GPS updates can jump. An outdoor test should check whether the 500-metre approach helps people notice a memory and whether the amber uncertainty state makes sense. No physical outcome is claimed here.
+
+## 27 October — Deployment, demonstration and journal edit
+
+I deployed version 0.6.3 to [Vercel](https://urban-echo-sigma.vercel.app/). The public production address opened without a Vercel login, loaded the map and read shared Echoes. This was a direct source upload; GitHub automatic redeployment has not been connected. The 36 code tests were rerun and passed. The two shared test Echoes, “Test” and “Test Echo Park”, were later removed along with their associated likes and replies. The database check confirmed those records were gone; this does not claim that their storage objects were removed.
+
+I finished the demonstration video. During capture, starting audio/video recording in the app interrupted the screen recording voiceover. Separate narration was discussed as a way to avoid the microphone conflict. The completed video has not been supplied to this journal, so there is no embedded video or shot-by-shot evaluation here.
+
+The main Task 3 page had become repetitive and read too much like a list of releases. I grouped it into six parts: first version, mobile layout, media/sharing, proximity, phone testing/video, and reflection. I reduced the screenshot selection, kept the originals linked, and moved test counts and tool information into an expandable evidence section. I also corrected the video-import account: the files I was trying to upload exceeded the 20 MB limit. The video is now recorded as complete rather than a future task.
+
+AI assisted the writing and layout edit as well as earlier implementation work. The revised page uses my recorded requests and observations; it does not invent participant feedback or claim a formal user study. Completed Task 2 content was kept unchanged.
+
+The revised page was checked at 390 px and 1440 px: no horizontal overflow or script errors, all eight selected screenshots loaded, and the expandable evidence section opened. Local image paths and anchor links were checked. A byte comparison confirmed the completed Task 2 prefix still matches its original committed version.

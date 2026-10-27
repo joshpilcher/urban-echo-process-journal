@@ -1,7 +1,35 @@
-
-/* Task 3 presentation: source screenshots remain unchanged for evidence. */
-#development .evidence-frame { display:block; position:relative; width:100%; overflow:hidden; border:1px solid #cbd6d1; border-radius:14px; background:#edf3ef; }
+/* Task 3 only. Task 2 styles and source screenshots are preserved. */
+#development { padding-top:6rem; padding-bottom:6rem; }
+#development .task3-intro, #development .development-update, #development .task3-supporting { max-width:960px; margin-left:auto; margin-right:auto; }
+#development .section-label { margin-bottom:1.5rem; }
+#development h2 { margin:0; font-family:var(--serif); font-size:clamp(2.7rem,6vw,5rem); font-weight:500; line-height:1.1; letter-spacing:-.035em; }
+#development .task3-dates { color:var(--ink-soft); margin:.75rem 0 1.5rem; font-size:.9rem; }
+#development .task3-lead { max-width:700px; font-size:1.15rem; line-height:1.8; }
+#development .task3-links { display:flex; flex-wrap:wrap; align-items:center; gap:1rem 1.75rem; margin:1.75rem 0 2.25rem; }
+#development .prototype-link { display:inline-block; background:var(--teal); color:white; padding:.65rem 1.15rem; border-radius:4px; text-decoration:none; }
+#development .task3-contents { display:flex; flex-wrap:wrap; gap:.5rem 1.5rem; padding:1.25rem 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); font-size:.9rem; }
+#development .task3-contents a { text-underline-offset:4px; }
+#development .development-update { margin-top:3.5rem; padding-top:0; border-top:0; scroll-margin-top:100px; }
+#development .development-update header { margin-bottom:1.25rem; }
+#development .kicker { margin:0 0 .4rem; font-size:.78rem; color:var(--ink-soft); letter-spacing:.04em; }
+#development h3 { font-family:var(--serif); font-size:clamp(1.8rem,3vw,2.4rem); font-weight:500; line-height:1.2; letter-spacing:-.02em; margin:0; }
+#development .prose { max-width:740px; }
+#development .prose p { margin:0 0 1.1rem; }
+#development .development-evidence { grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start; gap:1.5rem; max-width:580px; margin:2rem 0 3rem; }
+#development .single-evidence { grid-template-columns:minmax(0,260px); max-width:260px; }
+#development .proximity-evidence { grid-template-columns:repeat(3,minmax(0,1fr)); max-width:820px; }
+#development .evidence-frame { display:block; position:relative; width:100%; overflow:hidden; border:1px solid #cbd6d1; border-radius:10px; background:#edf3ef; }
 #development .evidence-frame img { position:absolute; left:0; width:100%; height:auto; max-height:none; border:0; border-radius:0; display:block; }
-#development .development-method { padding:16px 18px; border-left:3px solid #8caea2; background:#eff4f0; font-size:.9rem; line-height:1.7; }
-
-@media(min-width:900px) { #development .proximity-evidence { grid-template-columns:repeat(3,minmax(0,1fr)); max-width:1100px; } }
+#development figcaption { font-size:.8rem; color:var(--ink-soft); line-height:1.6; margin-top:.75rem; }
+#development .task3-supporting { margin-top:3rem; padding:1.25rem 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); color:var(--ink-soft); font-size:.9rem; }
+#development .task3-supporting summary { color:var(--ink); cursor:pointer; padding:.4rem 0; font-weight:600; }
+#development .task3-supporting p { max-width:740px; }
+#development a:focus-visible, #development summary:focus-visible { outline:3px solid var(--teal); outline-offset:5px; }
+@media(max-width:600px) {
+ #development { padding:4rem 1.25rem; }
+ #development .task3-lead { font-size:1.05rem; }
+ #development .development-evidence { gap:1rem; }
+ #development .proximity-evidence { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ #development .proximity-evidence figure:last-child { max-width:calc(50% - .5rem); grid-column:1 / -1; }
+ #development .development-update { margin-top:3rem; }
+}
